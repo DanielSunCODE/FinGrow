@@ -61,7 +61,6 @@
 <body class="font-display bg-background-light dark:bg-background-dark">
   <div class="relative mx-auto flex h-auto min-h-screen w-full max-w-lg flex-col group/design-root overflow-x-hidden">
     <!-- Top App Bar -->
-    <!-- Top App Bar -->
     <header class="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
       <div class="flex items-center p-4 pb-2 justify-between">
         <div class="flex size-10 items-center justify-center text-subtle-text-light dark:text-subtle-text-dark">
@@ -73,18 +72,23 @@
     </header>
     <!-- Main Content: Goal List -->
     <main class="flex-grow px-4 pb-28 pt-2">
-      <div class="flex flex-col gap-4">
+      <div id="goalsList" class="flex flex-col gap-4">
         <!-- Goal Card 1: Vacation Fund -->
         <div
-          class="flex w-full flex-col items-stretch justify-start rounded-xl border border-border-light bg-card-light p-4 shadow-sm dark:border-border-dark dark:bg-card-dark">
+          class="goal-card goal-card-1 cursor-pointer flex w-full flex-col items-stretch justify-start rounded-xl border border-border-light bg-card-light p-4 shadow-sm dark:border-border-dark dark:bg-card-dark" onclick="window.location.href='goal_track_page.html'">
           <div class="mb-3 flex w-full items-start justify-between gap-4">
             <div class="flex flex-col">
               <p class="text-sm font-medium text-secondary dark:text-secondary">Travel</p>
               <p
                 class="text-lg font-bold leading-tight tracking-[-0.015em] text-text-primary-light dark:text-text-primary-dark">
-                Vacation Fund</p>
+                Japan Trip</p>
             </div>
-            <span class="text-lg font-bold text-primary dark:text-primary">30%</span>
+            <div class="flex items-center gap-2">
+              <span class="text-lg font-bold text-primary dark:text-primary">65%</span>
+              <button onclick="event.stopPropagation(); confirmDeleteGoal(this, 'Japan Trip')" class="text-danger hover:bg-danger/10 p-1 rounded">
+                <span class="material-symbols-outlined text-lg">delete</span>
+              </button>
+            </div>
           </div>
           <div class="mb-1 h-2 w-full rounded-full bg-primary/20 dark:bg-primary/30">
             <div class="h-2 rounded-full bg-primary" style="width: 30%;"></div>
@@ -97,7 +101,7 @@
         </div>
         <!-- Goal Card 2: New Car -->
         <div
-          class="flex w-full flex-col items-stretch justify-start rounded-xl border border-border-light bg-card-light p-4 shadow-sm dark:border-border-dark dark:bg-card-dark">
+          class="goal-card goal-card-2 cursor-pointer flex w-full flex-col items-stretch justify-start rounded-xl border border-border-light bg-card-light p-4 shadow-sm dark:border-border-dark dark:bg-card-dark" onclick="window.location.href='goal_track_page.html'">
           <div class="mb-3 flex w-full items-start justify-between gap-4">
             <div class="flex flex-col">
               <p class="text-sm font-medium text-secondary dark:text-secondary">Savings</p>
@@ -105,7 +109,12 @@
                 class="text-lg font-bold leading-tight tracking-[-0.015em] text-text-primary-light dark:text-text-primary-dark">
                 New Car Down Payment</p>
             </div>
-            <span class="text-lg font-bold text-primary dark:text-primary">80%</span>
+            <div class="flex items-center gap-2">
+              <span class="text-lg font-bold text-primary dark:text-primary">80%</span>
+              <button onclick="event.stopPropagation(); confirmDeleteGoal(this, 'New Car Down Payment')" class="text-danger hover:bg-danger/10 p-1 rounded">
+                <span class="material-symbols-outlined text-lg">delete</span>
+              </button>
+            </div>
           </div>
           <div class="mb-1 h-2 w-full rounded-full bg-primary/20 dark:bg-primary/30">
             <div class="h-2 rounded-full bg-primary" style="width: 80%;"></div>
@@ -118,7 +127,7 @@
         </div>
         <!-- Goal Card 3: Completed Goal -->
         <div
-          class="flex w-full flex-col items-stretch justify-start rounded-xl border border-border-light bg-card-light p-4 shadow-sm dark:border-border-dark dark:bg-card-dark">
+          class="goal-card goal-card-3 cursor-pointer flex w-full flex-col items-stretch justify-start rounded-xl border border-border-light bg-card-light p-4 shadow-sm dark:border-border-dark dark:bg-card-dark" onclick="window.location.href='goal_track_page.html'">
           <div class="mb-3 flex w-full items-start justify-between gap-4">
             <div class="flex flex-col">
               <p class="text-sm font-medium text-secondary dark:text-secondary">Savings</p>
@@ -126,9 +135,14 @@
                 class="text-lg font-bold leading-tight tracking-[-0.015em] text-text-primary-light dark:text-text-primary-dark">
                 Emergency Fund</p>
             </div>
-            <div class="flex items-center gap-1">
-              <span class="material-symbols-outlined text-xl text-primary">check_circle</span>
-              <span class="text-lg font-bold text-primary dark:text-primary">100%</span>
+            <div class="flex items-center gap-2">
+              <div class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-xl text-primary">check_circle</span>
+                <span class="text-lg font-bold text-primary dark:text-primary">100%</span>
+              </div>
+              <button onclick="event.stopPropagation(); confirmDeleteGoal(this, 'Emergency Fund')" class="text-danger hover:bg-danger/10 p-1 rounded">
+                <span class="material-symbols-outlined text-lg">delete</span>
+              </button>
             </div>
           </div>
           <div class="mb-1 h-2 w-full rounded-full bg-primary/20 dark:bg-primary/30">
@@ -140,19 +154,11 @@
             <span class="font-medium text-primary">Completed</span>
           </div>
         </div>
-        <!-- Empty State Example (commented out) -->
-        <!-- 
-                <div class="mt-16 flex flex-col items-center justify-center text-center">
-                    <span class="material-symbols-outlined text-6xl text-text-secondary-light dark:text-text-secondary-dark opacity-50">savings</span>
-                    <h3 class="mt-4 text-lg font-bold text-text-primary-light dark:text-text-primary-dark">Start saving for your dreams!</h3>
-                    <p class="mt-1 max-w-xs text-text-secondary-light dark:text-text-secondary-dark">Tap the '+' to add your first goal and watch your savings grow.</p>
-                </div> 
-                -->
       </div>
     </main>
     <!-- Floating Action Button -->
     <div class="fixed bottom-24 right-5 z-20">
-      <button
+      <button onclick="document.getElementById('addGoalModal').classList.remove('hidden')"
         class="flex h-16 w-16 cursor-pointer items-center justify-center rounded-full bg-primary text-white shadow-lg transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95">
         <span class="material-symbols-outlined !text-4xl">add</span>
       </button>
@@ -178,6 +184,169 @@
       </div>
     </nav>
   </div>
+
+  <!-- Add Goal Modal -->
+  <div id="addGoalModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-background-light dark:bg-background-dark rounded-xl p-6 w-full max-w-md">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold">Crear Nueva Meta</h3>
+        <button onclick="closeAddGoalModal()" class="text-2xl">&times;</button>
+      </div>
+      
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">Nombre de la Meta</label>
+          <input type="text" id="goalName" class="w-full p-2 border border-border-light dark:border-border-dark rounded" placeholder="Ej: Viaje a Europa">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium mb-1">Tipo de Destino</label>
+          <select id="goalType" class="w-full p-2 border border-border-light dark:border-border-dark rounded">
+            <option value="Savings">Savings</option>
+            <option value="Travel">Travel</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Relations">Relations</option>
+            <option value="Education">Education</option>
+            <option value="Health">Health</option>
+          </select>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium mb-1">Cantidad a Ahorrar ($)</label>
+          <input type="number" id="goalAmount" class="w-full p-2 border border-border-light dark:border-border-dark rounded" placeholder="5000">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium mb-1">Tiempo para Lograrlo</label>
+          <div class="flex gap-2">
+            <input type="number" id="timeNumber" class="flex-1 p-2 border border-border-light dark:border-border-dark rounded" placeholder="6" min="1">
+            <select id="timeUnit" class="flex-1 p-2 border border-border-light dark:border-border-dark rounded">
+              <option value="semanas">Semanas</option>
+              <option value="meses" selected>Meses</option>
+              <option value="años">Años</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="flex gap-2 pt-4">
+          <button onclick="closeAddGoalModal()" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded font-medium">Cancelar</button>
+          <button onclick="createGoal()" class="flex-1 bg-primary text-white py-2 rounded font-medium">Crear Meta</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="deleteGoalModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-background-light dark:bg-background-dark rounded-xl p-6 w-full max-w-md">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-danger">Eliminar Meta</h3>
+        <button onclick="cancelDelete()" class="text-2xl">&times;</button>
+      </div>
+      
+      <div class="space-y-4">
+        <p class="text-sm">¿Estás seguro de que quieres eliminar la meta "<span id="deleteGoalName" class="font-bold"></span>"?</p>
+        <p class="text-xs text-subtext-light dark:text-subtext-dark">Al eliminar esta meta, el dinero ahorrado será regresado a tu cuenta principal y se borrará todo el progreso.</p>
+        
+        <div class="flex gap-2 pt-4">
+          <button onclick="cancelDelete()" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded font-medium">Cancelar</button>
+          <button onclick="deleteGoal()" class="flex-1 bg-danger text-white py-2 rounded font-medium">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function closeAddGoalModal() {
+      document.getElementById('goalName').value = '';
+      document.getElementById('goalType').selectedIndex = 0;
+      document.getElementById('goalAmount').value = '';
+      document.getElementById('timeNumber').value = '';
+      document.getElementById('timeUnit').selectedIndex = 1;
+      document.getElementById('addGoalModal').classList.add('hidden');
+    }
+    
+    function createGoal() {
+      const name = document.getElementById('goalName').value;
+      const type = document.getElementById('goalType').value;
+      const amount = document.getElementById('goalAmount').value;
+      const timeNumber = document.getElementById('timeNumber').value;
+      const timeUnit = document.getElementById('timeUnit').value;
+      
+      if (!name || !amount || !timeNumber) {
+        alert('Por favor completa todos los campos');
+        return;
+      }
+      
+      // Calculate ETA
+      const currentDate = new Date();
+      let etaDate = new Date(currentDate);
+      
+      if (timeUnit === 'semanas') {
+        etaDate.setDate(currentDate.getDate() + (timeNumber * 7));
+      } else if (timeUnit === 'meses') {
+        etaDate.setMonth(currentDate.getMonth() + parseInt(timeNumber));
+      } else if (timeUnit === 'años') {
+        etaDate.setFullYear(currentDate.getFullYear() + parseInt(timeNumber));
+      }
+      
+      const etaString = etaDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+      
+      // Create new goal card
+      const goalCard = `
+        <div class="goal-card cursor-pointer flex w-full flex-col items-stretch justify-start rounded-xl border border-border-light bg-card-light p-4 shadow-sm dark:border-border-dark dark:bg-card-dark" onclick="window.location.href='goal_track_page.html'">
+          <div class="mb-3 flex w-full items-start justify-between gap-4">
+            <div class="flex flex-col">
+              <p class="text-sm font-medium text-secondary dark:text-secondary">${type}</p>
+              <p class="text-lg font-bold leading-tight tracking-[-0.015em] text-text-primary-light dark:text-text-primary-dark">${name}</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-lg font-bold text-primary dark:text-primary">0%</span>
+              <button onclick="event.stopPropagation(); confirmDeleteGoal(this, '${name}')" class="text-danger hover:bg-danger/10 p-1 rounded">
+                <span class="material-symbols-outlined text-lg">delete</span>
+              </button>
+            </div>
+          </div>
+          <div class="mb-1 h-2 w-full rounded-full bg-primary/20 dark:bg-primary/30">
+            <div class="h-2 rounded-full bg-primary" style="width: 0%;"></div>
+          </div>
+          <div class="flex items-center justify-between text-sm text-text-secondary-light dark:text-text-secondary-dark">
+            <span>$0 / $${parseInt(amount).toLocaleString()}</span>
+            <span>ETA: ${etaString}</span>
+          </div>
+        </div>
+      `;
+      
+      // Add to goals list
+      document.getElementById('goalsList').insertAdjacentHTML('beforeend', goalCard);
+      
+      alert(`Meta "${name}" creada exitosamente!`);
+      closeAddGoalModal();
+    }
+    
+    let goalToDelete = null;
+    
+    function confirmDeleteGoal(button, goalName) {
+      goalToDelete = button.closest('.goal-card');
+      document.getElementById('deleteGoalName').textContent = goalName;
+      document.getElementById('deleteGoalModal').classList.remove('hidden');
+    }
+    
+    function deleteGoal() {
+      if (goalToDelete) {
+        goalToDelete.remove();
+        goalToDelete = null;
+      }
+      document.getElementById('deleteGoalModal').classList.add('hidden');
+      alert('Meta eliminada. El dinero ha sido regresado a tu cuenta principal.');
+    }
+    
+    function cancelDelete() {
+      goalToDelete = null;
+      document.getElementById('deleteGoalModal').classList.add('hidden');
+    }
+  </script>
+
 </body>
 
 </html>
