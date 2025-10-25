@@ -169,6 +169,13 @@
             </p>
           </div>
         </div>
+        
+        <!-- Explore Investments Button -->
+        <div class="px-4 pb-4">
+          <button onclick="document.getElementById('investmentModal').classList.remove('hidden')" class="w-full bg-secondary text-white py-3 rounded-lg font-bold hover:bg-secondary/90 transition-colors">
+            Explorar Inversiones
+          </button>
+        </div>
     </main>
     <!-- Bottom Navigation Bar -->
     <nav
@@ -190,6 +197,74 @@
         </a>
       </div>
     </nav>
+  </div>
+
+  <!-- Investment Modal -->
+  <div id="investmentModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-background-light dark:bg-background-dark rounded-xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold">Modelos de Inversión Capital One</h3>
+        <button onclick="document.getElementById('investmentModal').classList.add('hidden')" class="text-2xl">&times;</button>
+      </div>
+      
+      <div class="space-y-4">
+        <!-- Investment Option 1 -->
+        <div class="border border-border-light dark:border-border-dark rounded-lg p-4">
+          <h4 class="font-bold text-primary">360 Performance Savings</h4>
+          <p class="text-sm text-subtext-light dark:text-subtext-dark mb-3">Cuenta de ahorros de alto rendimiento con 4.25% APY. Sin mínimo de saldo.</p>
+          <button onclick="openForecastModal('360 Performance Savings', '4.25')" class="w-full bg-primary text-white py-2 rounded text-sm">Ver en Forecast</button>
+        </div>
+        
+        <!-- Investment Option 2 -->
+        <div class="border border-border-light dark:border-border-dark rounded-lg p-4">
+          <h4 class="font-bold text-primary">Certificate of Deposit (CD)</h4>
+          <p class="text-sm text-subtext-light dark:text-subtext-dark mb-3">CD a 12 meses con 5.00% APY. Depósito mínimo de $1,000.</p>
+          <button onclick="openForecastModal('Certificate of Deposit', '5.00')" class="w-full bg-primary text-white py-2 rounded text-sm">Ver en Forecast</button>
+        </div>
+        
+        <!-- Investment Option 3 -->
+        <div class="border border-border-light dark:border-border-dark rounded-lg p-4">
+          <h4 class="font-bold text-primary">Money Market Account</h4>
+          <p class="text-sm text-subtext-light dark:text-subtext-dark mb-3">Cuenta del mercado monetario con 4.00% APY y acceso flexible a fondos.</p>
+          <button onclick="openForecastModal('Money Market Account', '4.00')" class="w-full bg-primary text-white py-2 rounded text-sm">Ver en Forecast</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Forecast Modal -->
+  <div id="forecastModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-background-light dark:bg-background-dark rounded-xl p-6 w-full max-w-md">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold" id="forecastTitle">Proyección de Inversión</h3>
+        <button onclick="resetForecastModal()" class="text-2xl">&times;</button>
+      </div>
+      
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">Cantidad a Invertir ($)</label>
+          <input type="number" id="investmentAmount" class="w-full p-2 border border-border-light dark:border-border-dark rounded" placeholder="1000">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium mb-1">Plazo</label>
+          <select id="investmentTerm" class="w-full p-2 border border-border-light dark:border-border-dark rounded">
+            <option value="3">3 meses</option>
+            <option value="6">6 meses</option>
+          </select>
+        </div>
+        
+        <div id="projectionResult" class="hidden bg-secondary/10 p-4 rounded-lg">
+          <h4 class="font-bold text-secondary mb-2">Proyección:</h4>
+          <p id="projectionText" class="text-sm"></p>
+        </div>
+        
+        <div class="flex gap-2">
+          <button onclick="calculateProjection()" class="flex-1 bg-secondary text-white py-2 rounded font-medium">Calcular</button>
+          <button onclick="addToForecast()" class="flex-1 bg-primary text-white py-2 rounded font-medium">Agregar al Forecast</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -216,6 +291,51 @@
           card.style.display = 'none';
         }
       });
+    }
+    
+    let currentInvestment = {};
+    
+    function openForecastModal(name, apy) {
+      currentInvestment = { name, apy: parseFloat(apy) };
+      document.getElementById('forecastTitle').textContent = `Proyección: ${name}`;
+      document.getElementById('investmentModal').classList.add('hidden');
+      document.getElementById('forecastModal').classList.remove('hidden');
+    }
+    
+    function calculateProjection() {
+      const amount = parseFloat(document.getElementById('investmentAmount').value);
+      const term = parseInt(document.getElementById('investmentTerm').value);
+      
+      if (!amount || !term) {
+        alert('Por favor ingresa cantidad y plazo');
+        return;
+      }
+      
+      const monthlyRate = currentInvestment.apy / 100 / 12;
+      const finalAmount = amount * Math.pow(1 + monthlyRate, term);
+      const earnings = finalAmount - amount;
+      
+      document.getElementById('projectionText').innerHTML = `
+        <strong>Inversión inicial:</strong> $${amount.toLocaleString()}<br>
+        <strong>Plazo:</strong> ${term} meses<br>
+        <strong>APY:</strong> ${currentInvestment.apy}%<br>
+        <strong>Valor final:</strong> $${finalAmount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}<br>
+        <strong>Ganancias:</strong> $${earnings.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+      `;
+      
+      document.getElementById('projectionResult').classList.remove('hidden');
+    }
+    
+    function addToForecast() {
+      alert(`${currentInvestment.name} agregado al forecast. Revisa la gráfica en la página principal.`);
+      resetForecastModal();
+    }
+    
+    function resetForecastModal() {
+      document.getElementById('investmentAmount').value = '';
+      document.getElementById('investmentTerm').selectedIndex = 0;
+      document.getElementById('projectionResult').classList.add('hidden');
+      document.getElementById('forecastModal').classList.add('hidden');
     }
   </script>
 
