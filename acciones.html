@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinGrow+ Recommendations</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+            colors: {
+                "primary": "#004AAD",
+                "secondary": "#00C49A",
+                "warning": "#FFC107",
+                "danger": "#F44336",
+                "background-light": "#F8F9FA",
+                "background-dark": "#101c22",
+                "text-light": "#101c22",
+                "text-dark": "#F8F9FA",
+                "subtext-light": "#6c757d",
+                "subtext-dark": "#adb5bd",
+                "border-light": "#e0e0e0",
+                "border-dark": "#343a40"
+            },
+            fontFamily: {
+                "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {
+                "DEFAULT": "0.5rem",
+                "lg": "0.75rem",
+                "xl": "1rem",
+                "full": "9999px"
+            },
+            },
+        },
+    }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<!-- Top App Bar -->
+<header class="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+<div class="flex items-center p-4 pb-2 justify-between">
+<div class="flex size-10 items-center justify-center text-subtle-text-light dark:text-subtle-text-dark">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</div>
+<h1 class="text-lg font-bold flex-1 text-center">Recomendaciones para ti</h1>
+<div class="flex size-10 items-center justify-center"></div>
+</div>
+</header>
+<main class="flex-grow pb-24">
+<!-- Category Filter Chips -->
+<div class="sticky top-[60px] z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm py-3">
+<div class="flex gap-3 px-4 overflow-x-auto whitespace-nowrap" style="scrollbar-width: none; -ms-overflow-style: none;">
+<div class="filter-chip flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-primary pl-5 pr-5 shadow-sm" onclick="filterRecommendations('Todos')">
+<p class="text-white text-sm font-semibold">Todos</p>
+</div>
+<div class="filter-chip flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-700 pl-5 pr-5" onclick="filterRecommendations('AHORRO')">
+<p class="text-text-light dark:text-text-dark text-sm font-medium">Ahorro</p>
+</div>
+<div class="filter-chip flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-700 pl-5 pr-5" onclick="filterRecommendations('INVERSIONES')">
+<p class="text-text-light dark:text-text-dark text-sm font-medium">Inversiones</p>
+</div>
+<div class="filter-chip flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-700 pl-5 pr-5" onclick="filterRecommendations('CRÉDITO')">
+<p class="text-text-light dark:text-text-dark text-sm font-medium">Crédito</p>
+</div>
+<div class="filter-chip flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-700 pl-5 pr-5" onclick="filterRecommendations('GASTOS HORMIGA')">
+<p class="text-text-light dark:text-text-dark text-sm font-medium">Gastos hormiga</p>
+</div>
+<div class="filter-chip flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-700 pl-5 pr-5" onclick="filterRecommendations('PAGOS PUNTUALES')">
+<p class="text-text-light dark:text-text-dark text-sm font-medium">Pagos puntuales</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4 p-4" id="recommendations-container">
+<!-- Recommendation Card 1: Ahorro -->
+<div class="recommendation-card flex flex-col items-stretch justify-start rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] bg-card-light dark:bg-card-dark overflow-hidden">
+<div class="flex w-full grow flex-col items-stretch justify-center gap-3 p-5">
+<p class="category text-primary text-sm font-bold leading-normal tracking-wide">AHORRO</p>
+<p class="text-text-light dark:text-text-dark text-lg font-bold leading-tight">Automatiza tu ahorro mensual</p>
+<p class="text-subtle-text-light dark:text-subtle-text-dark text-base font-normal leading-relaxed">
+                            Programa transferencias automáticas a tu cuenta de ahorros y observa cómo crece tu dinero sin esfuerzo.
+                        </p>
+</div>
+</div>
+<!-- Recommendation Card 2: Crédito -->
+<div class="recommendation-card flex flex-col items-stretch justify-start rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] bg-card-light dark:bg-card-dark overflow-hidden">
+<div class="flex w-full grow flex-col items-stretch justify-center gap-3 p-5">
+<p class="category text-secondary text-sm font-bold leading-normal tracking-wide">CRÉDITO</p>
+<p class="text-text-light dark:text-text-dark text-lg font-bold leading-tight">Reduce el saldo de tu tarjeta de crédito</p>
+<p class="text-subtle-text-light dark:text-subtle-text-dark text-base font-normal leading-relaxed">
+                            Pagar más del mínimo en tu tarjeta de crédito mejora tu salud crediticia y reduce los intereses a largo plazo.
+                        </p>
+</div>
+</div>
+<!-- Recommendation Card 3: Gastos Hormiga -->
+<div class="recommendation-card flex flex-col items-stretch justify-start rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] bg-card-light dark:bg-card-dark overflow-hidden">
+<div class="flex w-full grow flex-col items-stretch justify-center gap-3 p-5">
+<p class="category text-orange-500 text-sm font-bold leading-normal tracking-wide">GASTOS HORMIGA</p>
+<p class="text-text-light dark:text-text-dark text-lg font-bold leading-tight">Identifica y reduce tus gastos pequeños</p>
+<p class="text-subtle-text-light dark:text-subtle-text-dark text-base font-normal leading-relaxed">
+                            Revisa tus gastos diarios menores, como cafés o suscripciones, para encontrar oportunidades de ahorro inesperadas.
+                        </p>
+</div>
+</div>
+<button class="flex w-full sm:w-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-11 px-6 bg-primary text-white text-sm font-bold leading-normal transition-transform duration-200 hover:scale-105">
+<span class="truncate"><a href="index.html#forecast">Ver en Forecast</a></span>
+</button>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 z-10 border-t border-border-light dark:border-border-dark bg-background-light/90 dark:bg-background-dark/80 backdrop-blur-sm">
+<div class="mx-auto flex h-16 max-w-md items-center justify-around px-4">
+<a class="flex flex-col items-center justify-center gap-1 text-subtext-light dark:text-subtext-dark" href="index.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-xs font-bold">Inicio</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary transition-colors duration-200" href="acciones.html">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">recommend</span>
+<span class="text-xs font-bold">Recomendaciones</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-subtext-light dark:text-subtext-dark" href="metas.html">
+<span class="material-symbols-outlined">donut_small</span>
+<span class="text-xs font-medium">Metas</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-subtext-light dark:text-subtext-dark" href="#">
+<span class="material-symbols-outlined">emoji_events</span>
+<span class="text-xs font-medium">Logros</span>
+</a>
+</div>
+</nav>
+</div>
+
+<script>
+function filterRecommendations(category) {
+  const cards = document.querySelectorAll('.recommendation-card');
+  const chips = document.querySelectorAll('.filter-chip');
+  
+  // Reset chip styles
+  chips.forEach(chip => {
+    chip.className = 'filter-chip flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-700 pl-5 pr-5';
+    chip.querySelector('p').className = 'text-text-light dark:text-text-dark text-sm font-medium';
+  });
+  
+  // Highlight active chip
+  event.target.closest('.filter-chip').className = 'filter-chip flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-primary pl-5 pr-5 shadow-sm';
+  event.target.closest('.filter-chip').querySelector('p').className = 'text-white text-sm font-semibold';
+  
+  // Filter cards
+  cards.forEach(card => {
+    const cardCategory = card.querySelector('.category').textContent;
+    if (category === 'Todos' || cardCategory === category) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+
+</body></html>
