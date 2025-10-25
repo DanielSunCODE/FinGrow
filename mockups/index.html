@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 
-<html class="light" lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>FinGrow+ Dashboard</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
-<script>
+<html class="light" lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>FinGrow+ Dashboard</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <script>
     tailwind.config = {
       darkMode: "class",
       theme: {
@@ -41,177 +44,174 @@
       },
     }
   </script>
-<style>
+  <style>
     .material-symbols-outlined {
       font-variation-settings:
-      'FILL' 0,
-      'wght' 400,
-      'GRAD' 0,
-      'opsz' 24
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
     }
   </style>
-<style>
+  <style>
     body {
       min-height: max(884px, 100dvh);
     }
   </style>
-  </head>
+</head>
+
 <body class="font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
-<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
-<!-- Top App Bar -->
-<div class="flex flex-col gap-2 bg-background-light dark:bg-background-dark p-4 pb-2">
-<div class="flex items-center h-12 justify-between">
-<div class="flex size-12 shrink-0 items-center">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture of Alex" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA1jdGY-YhbQ2VrrveiiD0z1NFwWFnXFrk-mvk9Swc_ktbhK8wbS0s3btYL8McFT58hzDmV-Bacrlwt_-iXewf0UYaC-zo4hmlDk-TV4jh8KRSs5Lq6Dpp-wJoYM3BlrpQOuzZQgl4Os3G2TMjXignHg7FTsf5hwFm6sr8sYJem6h5u_pom7ngWcXFIsDQ3dB5gWyJy7NEVgJQtjRpcjG6HdlR_HiW1b98JgKwgzDFZuvZDwwL9Fo6dtK6wIfdUKrKVkeDMtrILbUFX");'></div>
-</div>
-<div class="flex w-12 items-center justify-end">
-<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 bg-transparent text-slate-800 dark:text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0">
-</button>
-</div>
-</div>
-<p class="text-slate-800 dark:text-white tracking-tight text-[28px] font-bold leading-tight">Good morning, Alex</p>
-</div>
-<!-- Balance Overview Card -->
-<div class="p-4 @container">
-<div class="flex flex-col items-stretch justify-start rounded-xl bg-gray-200/50 dark:bg-gray-700/50 p-6 @xl:items-start">
-<div class="flex w-full min-w-72 grow flex-col items-stretch justify-center gap-1">
-<p class="text-slate-500 dark:text-slate-400 text-base font-normal leading-normal">Current Balance</p>
-<div class="flex items-end gap-3 justify-between">
-<p class="text-slate-900 dark:text-white text-4xl font-bold leading-tight tracking-tighter">$2,480.50</p>
-<p class="text-emerald-500 dark:text-emerald-400 text-base font-medium leading-normal">+$50 this week</p>
-</div>
-</div>
-</div>
-</div>
-<!-- Section Header -->
-<h2 id="forecast" class="text-xl font-bold tracking-tight px-4 pb-0 pt-4">Gráfica de Predicción de Flujo</h2>
-<!-- Segmented Buttons -->
-<div class="flex px-4 py-3">
-<div class="flex h-10 flex-1 items-center justify-center rounded-lg bg-gray-200/50 dark:bg-gray-700/50 p-1">
-<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 text-sm font-medium leading-normal text-subtext-light dark:text-subtext-dark has-[:checked]:bg-background-light has-[:checked]:dark:bg-background-dark has-[:checked]:shadow-sm has-[:checked]:text-text-light has-[:checked]:dark:text-text-dark">
-<span class="truncate">Today</span>
-<input class="invisible w-0" name="prediction-period" type="radio" value="7 días"/>
-</label>
-<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 text-sm font-medium leading-normal text-subtext-light dark:text-subtext-dark has-[:checked]:bg-background-light has-[:checked]:dark:bg-background-dark has-[:checked]:shadow-sm has-[:checked]:text-text-light has-[:checked]:dark:text-text-dark">
-<span class="truncate">1 Month</span>
-<input checked="" class="invisible w-0" name="prediction-period" type="radio" value="30 días"/>
-</label>
-<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 text-sm font-medium leading-normal text-subtext-light dark:text-subtext-dark has-[:checked]:bg-background-light has-[:checked]:dark:bg-background-dark has-[:checked]:shadow-sm has-[:checked]:text-text-light has-[:checked]:dark:text-text-dark">
-<span class="truncate">3 Month</span>
-<input checked="" class="invisible w-0" name="prediction-period" type="radio" value="30 días"/>
-</label>
-</div>
-</div>
-<!-- Graph Placeholder -->
-<div class="px-4">
-<div class="aspect-[16/10] w-full rounded-lg bg-gray-200/50 dark:bg-gray-700/50 flex items-center justify-center">
-<div class="text-center p-4">
-<span class="material-symbols-outlined text-5xl text-subtext-light dark:text-subtext-dark opacity-50">show_chart</span>
-<p class="mt-2 text-sm text-subtext-light dark:text-subtext-dark">Line chart representing cash flow prediction.</p>
-<p class="text-xs text-subtext-light/70 dark:text-subtext-dark/70">Solid lines for historical, dashed for projected.</p>
-</div>
-</div>
-</div>
-<!-- Graph Actions & Status -->
-<div class="px-4 py-3 flex flex-col gap-3">
-<div class="flex items-center justify-center">
-<button onclick="window.location.href='acciones.html'" class="px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors">¿Cómo Mejorar? - Acciones Recomendadas</button>
-</div>
-</div>
-<!-- Primary Visualization Chart (Donut Chart) -->
-<div class="rounded-lg  dark:bg-surface-dark p-4">
-<p class="text-on-surface-variant-light dark:text-on-surface-variant-dark text-sm font-medium">This Month's Spending</p>
-<div class="flex items-center justify-center gap-4 py-4">
-<div class="relative flex size-40 items-center justify-center">
-<svg class="size-full" viewbox="0 0 36 36">
-<path class="stroke-[#6366f1] stroke-2" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="35, 100" stroke-linecap="round" stroke-width="3"></path>
-<path class="stroke-[#f59e0b] stroke-2" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="25, 100" stroke-dashoffset="-35" stroke-linecap="round" stroke-width="3"></path>
-<path class="stroke-[#10b981] stroke-2" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="20, 100" stroke-dashoffset="-60" stroke-linecap="round" stroke-width="3"></path>
-<path class="stroke-[#ef4444] stroke-2" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="10, 100" stroke-dashoffset="-80" stroke-linecap="round" stroke-width="3"></path>
-<path class="stroke-[#3b82f6] stroke-2" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="10, 100" stroke-dashoffset="-90" stroke-linecap="round" stroke-width="3"></path>
-</svg>
-<div class="absolute flex flex-col items-center justify-center">
-<p class="text-on-surface-variant-light dark:text-on-surface-variant-dark text-xs">Total Spent</p>
-<p class="text-on-surface-light dark:text-on-surface-dark text-xl font-bold">$1,250.75</p>
-</div>
-</div>
-<div class="flex flex-col gap-2">
-<div class="flex items-center gap-2"><div class="size-3 rounded-full bg-[#6366f1]"></div><p class="text-on-surface-light dark:text-on-surface-dark text-sm">Food &amp; Dining</p></div>
-<div class="flex items-center gap-2"><div class="size-3 rounded-full bg-[#f59e0b]"></div><p class="text-on-surface-light dark:text-on-surface-dark text-sm">Shopping</p></div>
-<div class="flex items-center gap-2"><div class="size-3 rounded-full bg-[#10b981]"></div><p class="text-on-surface-light dark:text-on-surface-dark text-sm">Transport</p></div>
-<div class="flex items-center gap-2"><div class="size-3 rounded-full bg-[#ef4444]"></div><p class="text-on-surface-light dark:text-on-surface-dark text-sm">Bills</p></div>
-<div class="flex items-center gap-2"><div class="size-3 rounded-full bg-[#3b82f6]"></div><p class="text-on-surface-light dark:text-on-surface-dark text-sm">Entertainment</p></div>
-</div>
-</div>
-</div>
-<!-- Goal Card -->
-<div class="main-goal px-4 pt-4">
-<div class="rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark p-4 cursor-pointer hover:shadow-lg transition-shadow" onclick="window.location.href='metas.html'">
-<h3 class="text-base font-bold">Meta principal: Viaje a la playa</h3>
-<div class="mt-3 flex items-baseline justify-between gap-4">
-<p class="text-xl font-bold">$1,200 <span class="text-sm font-normal text-subtext-light dark:text-subtext-dark">de $5,000</span></p>
-<p class="text-sm font-medium text-subtext-light dark:text-subtext-dark">ETA: Dic 2024</p>
-</div>
-<div class="mt-2 flex flex-col gap-2">
-<div class="flex justify-between">
-<p class="text-sm font-medium text-secondary">24% completado</p>
-</div>
-<div class="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700">
-<div class="h-2 rounded-full bg-secondary" style="width: 24%;"></div>
-</div>
-</div>
-<button class="mt-4 w-full rounded-lg bg-primary py-3 text-base font-bold text-white shadow-sm transition-opacity hover:opacity-90" onclick="event.stopPropagation(); document.getElementById('paymentModal').classList.remove('hidden')">Aportar $200 hoy</button>
-</div>
-</div>
-</main>
-<!-- Bottom Navigation Bar -->
-<nav class="fixed bottom-0 left-0 right-0 z-10 border-t border-border-light dark:border-border-dark bg-background-light/90 dark:bg-background-dark/80 backdrop-blur-sm">
-<div class="mx-auto flex h-16 max-w-md items-center justify-around px-4">
-<a class="flex flex-col items-center justify-center gap-1 text-primary" href="#">
-<span class="material-symbols-outlined">dashboard</span>
-<span class="text-xs font-bold">Inicio</span>
-</a>
-<a class="flex flex-col items-center justify-center gap-1 text-subtext-light dark:text-subtext-dark" href="acciones.html">
-<span class="material-symbols-outlined">recommend</span>
-<span class="text-xs font-bold">Recomendaciones</span>
-</a>
-<a class="flex flex-col items-center justify-center gap-1 text-subtext-light dark:text-subtext-dark" href="metas.html">
-<span class="material-symbols-outlined">donut_small</span>
-<span class="text-xs font-medium">Metas</span>
-</a>
-<a class="flex flex-col items-center justify-center gap-1 text-subtext-light dark:text-subtext-dark" href="#">
-<span class="material-symbols-outlined">emoji_events</span>
-<span class="text-xs font-medium">Logros</span>
-</a>
-</div>
-</nav>
-</div>
+  <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+    <!-- Top App Bar -->
+    <div class="flex flex-col gap-2 bg-background-light dark:bg-background-dark p-4 pb-2">
+      <div class="flex items-center h-12 justify-between">
+        <div class="flex size-12 shrink-0 items-center">
+          <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+            data-alt="User profile picture of Alex"
+            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA1jdGY-YhbQ2VrrveiiD0z1NFwWFnXFrk-mvk9Swc_ktbhK8wbS0s3btYL8McFT58hzDmV-Bacrlwt_-iXewf0UYaC-zo4hmlDk-TV4jh8KRSs5Lq6Dpp-wJoYM3BlrpQOuzZQgl4Os3G2TMjXignHg7FTsf5hwFm6sr8sYJem6h5u_pom7ngWcXFIsDQ3dB5gWyJy7NEVgJQtjRpcjG6HdlR_HiW1b98JgKwgzDFZuvZDwwL9Fo6dtK6wIfdUKrKVkeDMtrILbUFX");'>
+          </div>
+        </div>
+        <div class="flex w-12 items-center justify-end">
+          <button
+            class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 bg-transparent text-slate-800 dark:text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0">
+          </button>
+        </div>
+      </div>
+      <p class="text-slate-800 dark:text-white tracking-tight text-[28px] font-bold leading-tight">Good morning, Alex
+      </p>
+    </div>
+    <!-- Balance Overview Card -->
+    <div class="p-4 @container">
+      <div
+        class="flex flex-col items-stretch justify-start rounded-xl bg-gray-200/50 dark:bg-gray-700/50 p-6 @xl:items-start">
+        <div class="flex w-full min-w-72 grow flex-col items-stretch justify-center gap-1">
+          <p class="text-slate-500 dark:text-slate-400 text-base font-normal leading-normal">Current Balance</p>
+          <div class="flex items-end gap-3 justify-between">
+            <p class="text-slate-900 dark:text-white text-4xl font-bold leading-tight tracking-tighter">$2,480.50</p>
+            <p class="text-emerald-500 dark:text-emerald-400 text-base font-medium leading-normal">+$50 this week</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Section Header -->
+    <h2 id="forecast" class="text-xl font-bold tracking-tight px-4 pb-0 pt-4">Gráfica de Predicción de Flujo</h2>
+    <!-- Segmented Buttons -->
+    <div class="flex px-4 py-3">
+      <div class="flex h-10 flex-1 items-center justify-center rounded-lg bg-gray-200/50 dark:bg-gray-700/50 p-1">
+        <label
+          class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 text-sm font-medium leading-normal text-subtext-light dark:text-subtext-dark has-[:checked]:bg-background-light has-[:checked]:dark:bg-background-dark has-[:checked]:shadow-sm has-[:checked]:text-text-light has-[:checked]:dark:text-text-dark">
+          <span class="truncate">Today</span>
+          <input class="invisible w-0" name="prediction-period" type="radio" value="7 días" />
+        </label>
+        <label
+          class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 text-sm font-medium leading-normal text-subtext-light dark:text-subtext-dark has-[:checked]:bg-background-light has-[:checked]:dark:bg-background-dark has-[:checked]:shadow-sm has-[:checked]:text-text-light has-[:checked]:dark:text-text-dark">
+          <span class="truncate">1 Month</span>
+          <input checked="" class="invisible w-0" name="prediction-period" type="radio" value="30 días" />
+        </label>
+        <label
+          class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 text-sm font-medium leading-normal text-subtext-light dark:text-subtext-dark has-[:checked]:bg-background-light has-[:checked]:dark:bg-background-dark has-[:checked]:shadow-sm has-[:checked]:text-text-light has-[:checked]:dark:text-text-dark">
+          <span class="truncate">3 Month</span>
+          <input checked="" class="invisible w-0" name="prediction-period" type="radio" value="30 días" />
+        </label>
+      </div>
+    </div>
+    <!-- Graph Placeholder -->
+    <div class="px-4">
+      <div class="aspect-[16/10] w-full rounded-lg bg-gray-200/50 dark:bg-gray-700/50 flex items-center justify-center">
+        <div class="text-center p-4">
+          <span
+            class="material-symbols-outlined text-5xl text-subtext-light dark:text-subtext-dark opacity-50">show_chart</span>
+          <p class="mt-2 text-sm text-subtext-light dark:text-subtext-dark">Line chart representing cash flow
+            prediction.</p>
+          <p class="text-xs text-subtext-light/70 dark:text-subtext-dark/70">Solid lines for historical, dashed for
+            projected.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Graph Actions & Status -->
+    <div class="px-4 py-3 flex flex-col gap-3">
+      <div class="flex items-center justify-center">
+        <button onclick="window.location.href='actions.html'"
+          class="px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors">¿Cómo
+          Mejorar? - Acciones Recomendadas</button>
+      </div>
+    </div>
+    <!-- Goal Card -->
+    <div class="main-goal px-4 pt-4">
+      <div
+        class="rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark p-4 cursor-pointer hover:shadow-lg transition-shadow"
+        onclick="window.location.href='metas.html'">
+        <h3 class="text-base font-bold">Meta principal: Viaje a la playa</h3>
+        <div class="mt-3 flex items-baseline justify-between gap-4">
+          <p class="text-xl font-bold">$1,200 <span
+              class="text-sm font-normal text-subtext-light dark:text-subtext-dark">de $5,000</span></p>
+          <p class="text-sm font-medium text-subtext-light dark:text-subtext-dark">ETA: Dic 2024</p>
+        </div>
+        <div class="mt-2 flex flex-col gap-2">
+          <div class="flex justify-between">
+            <p class="text-sm font-medium text-secondary">24% completado</p>
+          </div>
+          <div class="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+            <div class="h-2 rounded-full bg-secondary" style="width: 24%;"></div>
+          </div>
+        </div>
+        <button
+          class="mt-4 w-full rounded-lg bg-primary py-3 text-base font-bold text-white shadow-sm transition-opacity hover:opacity-90"
+          onclick="event.stopPropagation(); document.getElementById('paymentModal').classList.remove('hidden')">Aportar
+          $200 hoy</button>
+      </div>
+    </div>
+    </main>
+    <!-- Bottom Navigation Bar -->
+    <nav
+      class="fixed bottom-0 left-0 right-0 z-10 border-t border-border-light dark:border-border-dark bg-background-light/90 dark:bg-background-dark/80 backdrop-blur-sm">
+      <div class="mx-auto flex h-16 max-w-md items-center justify-around px-4">
+        <a class="flex flex-col items-center justify-center gap-1 text-primary" href="index.html">
+          <span class="material-symbols-outlined">dashboard</span>
+          <span class="text-xs font-bold">Inicio</span>
+        </a>
+        <a class="flex flex-col items-center justify-center gap-1 text-subtext-light dark:text-subtext-dark"
+          href="actions.html">
+          <span class="material-symbols-outlined">recommend</span>
+          <span class="text-xs font-bold">Recomendaciones</span>
+        </a>
+        <a class="flex flex-col items-center justify-center gap-1 text-subtext-light dark:text-subtext-dark"
+          href="goals.html">
+          <span class="material-symbols-outlined">donut_small</span>
+          <span class="text-xs font-medium">Metas</span>
+        </a>
+      </div>
+    </nav>
+  </div>
 
-<!-- Payment Modal -->
-<div id="paymentModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-<div class="bg-background-light dark:bg-background-dark rounded-xl p-6 w-80 mx-4">
-<div class="flex justify-between items-center mb-4">
-<h3 class="text-lg font-bold">Transferir a Ahorros</h3>
-<button onclick="document.getElementById('paymentModal').classList.add('hidden')" style="background-color: #0000; font-weight: bolder;">X</button>
-</div>
-<div class="space-y-4">
-<div class="text-sm text-subtext-light dark:text-subtext-dark">
-<p>Desde: Capital One Checking ****1234</p>
-<p>Hacia: Capital One Savings - Viaje Playa</p>
-<p class="font-bold text-lg mt-2">Monto: $200.00</p>
-</div>
-<button onclick="processTransfer()" class="w-full bg-primary text-white py-3 rounded-lg font-bold">Confirmar Transferencia</button>
-</div>
-</div>
-</div>
+  <!-- Payment Modal -->
+  <div id="paymentModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-background-light dark:bg-background-dark rounded-xl p-6 w-80 mx-4">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold">Transferir a Ahorros</h3>
+        <button onclick="document.getElementById('paymentModal').classList.add('hidden')"
+          style="background-color: #0000; font-weight: bolder;">X</button>
+      </div>
+      <div class="space-y-4">
+        <div class="text-sm text-subtext-light dark:text-subtext-dark">
+          <p>Desde: Capital One Checking ****1234</p>
+          <p>Hacia: Capital One Savings - Viaje Playa</p>
+          <p class="font-bold text-lg mt-2">Monto: $200.00</p>
+        </div>
+        <button onclick="processTransfer()" class="w-full bg-primary text-white py-3 rounded-lg font-bold">Confirmar
+          Transferencia</button>
+      </div>
+    </div>
+  </div>
 
-<script>
-function processTransfer() {
-  alert('Transferencia exitosa: $200 transferidos a tu cuenta de ahorros para Viaje a la Playa');
-  document.getElementById('paymentModal').classList.add('hidden');
-}
-</script>
-<!-- <div id="root"></div> -->
-<script type="module" src="/src/main.tsx"></script>
+  <script>
+    function processTransfer() {
+      alert('Transferencia exitosa: $200 transferidos a tu cuenta de ahorros para Viaje a la Playa');
+      document.getElementById('paymentModal').classList.add('hidden');
+    }
+  </script>
+  <!-- <div id="root"></div> -->
+  <script type="module" src="/src/main.tsx"></script>
 </body>
+
 </html>
