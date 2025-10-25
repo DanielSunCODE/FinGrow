@@ -38,8 +38,8 @@ export const lightTheme: Theme = createTheme({
         },
 
         background: {
-            default: '#F8F9FA',
-            paper: '#FFFFFF',
+            default: '#FFFFFF',
+            paper: '#F8F9FA',
         },
 
         text: {

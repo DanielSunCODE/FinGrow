@@ -33,7 +33,7 @@ export const TopAppBar: React.FC = () => {
                 variant="h4"
                 component="h1"
                 sx={{
-                    fontWeight: 700,
+                    fontWeight: 500,
                     fontSize: '28px',
                     lineHeight: 1.2,
                 }}
