@@ -25,9 +25,12 @@
     "globals": "^16.4.0",
     "vite": "^7.1.7"
   },
-  "homepage": "https://DanielSunCODE.github.io/my-react-app",
+  "homepage": "https://danielsuncode.github.io/FinGrow",
   "scripts": {
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build"
+  "dev": "vite",
+  "build": "vite build",
+  "preview": "vite preview",
+  "predeploy": "npm run build && copy dist\\index.html dist\\404.html",
+  "deploy": "gh-pages -d dist"
 }
 }
