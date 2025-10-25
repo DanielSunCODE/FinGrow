@@ -67,6 +67,28 @@
 </div>
 </header>
 <main class="flex-grow pb-24">
+<!-- Motivational Nudge Banner -->
+<div class="p-4 pt-2 @container">
+<div class="flex flex-1 flex-col items-start justify-between gap-4 rounded-xl border border-transparent bg-primary/10 dark:bg-primary/20 p-5 @[480px]:flex-row @[480px]:items-center">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-success text-3xl">trending_up</span>
+<div class="flex flex-col gap-1">
+<p class="text-primary dark:text-sky-200 text-base font-bold leading-tight">You're ahead of schedule!</p>
+<p class="text-slate-600 dark:text-slate-300 text-sm font-normal leading-normal">Your consistent contributions have put you on the fast track.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Graph Placeholder -->
+<div class="px-4">
+<div class="aspect-[16/10] w-full rounded-lg bg-gray-200/50 dark:bg-gray-700/50 flex items-center justify-center">
+<div class="text-center p-4">
+<span class="material-symbols-outlined text-5xl text-subtext-light dark:text-subtext-dark opacity-50">show_chart</span>
+<p class="mt-2 text-sm text-subtext-light dark:text-subtext-dark">Line chart representing cash flow prediction.</p>
+<p class="text-xs text-subtext-light/70 dark:text-subtext-dark/70">Solid lines for historical, dashed for projected.</p>
+</div>
+</div>
+</div>
 <!-- Category Filter Chips -->
 <div class="sticky top-[60px] z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm py-3">
 <div class="flex gap-3 px-4 overflow-x-auto whitespace-nowrap" style="scrollbar-width: none; -ms-overflow-style: none;">
@@ -75,9 +97,6 @@
 </div>
 <div class="filter-chip flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-700 pl-5 pr-5" onclick="filterRecommendations('AHORRO')">
 <p class="text-text-light dark:text-text-dark text-sm font-medium">Ahorro</p>
-</div>
-<div class="filter-chip flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-700 pl-5 pr-5" onclick="filterRecommendations('INVERSIONES')">
-<p class="text-text-light dark:text-text-dark text-sm font-medium">Inversiones</p>
 </div>
 <div class="filter-chip flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-700 pl-5 pr-5" onclick="filterRecommendations('CRÉDITO')">
 <p class="text-text-light dark:text-text-dark text-sm font-medium">Crédito</p>
@@ -121,9 +140,6 @@
                         </p>
 </div>
 </div>
-<button class="flex w-full sm:w-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-11 px-6 bg-primary text-white text-sm font-bold leading-normal transition-transform duration-200 hover:scale-105">
-<span class="truncate"><a href="index.html#forecast">Ver en Forecast</a></span>
-</button>
 </main>
 <!-- Bottom Navigation Bar -->
 <nav class="fixed bottom-0 left-0 right-0 z-10 border-t border-border-light dark:border-border-dark bg-background-light/90 dark:bg-background-dark/80 backdrop-blur-sm">

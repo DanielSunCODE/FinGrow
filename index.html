@@ -59,85 +59,45 @@
 <body class="font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
 <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
 <!-- Top App Bar -->
-<header class="flex items-center p-4 pb-2 justify-between sticky top-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm z-10">
-<div class="flex items-center gap-3">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBDYb9eHKNla5l0a87s2Mrs8AbYt4ckt5kaTco-zZ97xtXwjgCxm0nohVJMhFZI1sbB2m0RIy5sPzeY9z5lc5CbpZ-3cvdeuzJ0ZSRbiXeNytkRKiLiV6W8IEOo960JUQx_gTp2-CuFQxYFkDd2LLPZFXpmsYVgfmZDJpHlO60sjkoU6Cg3Egv_bVJzzVCuX0JlDKv7GcoZ2uTMGqT_a5AjAsfAVW-8NK9jASUJRGO0-2XVpC7C5kYdEdSwVrE2x1vQJmIX0F7UShI");'></div>
-<h1 class="text-lg font-bold">Hola, Nombre</h1>
+<div class="flex flex-col gap-2 bg-background-light dark:bg-background-dark p-4 pb-2">
+<div class="flex items-center h-12 justify-between">
+<div class="flex size-12 shrink-0 items-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture of Alex" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA1jdGY-YhbQ2VrrveiiD0z1NFwWFnXFrk-mvk9Swc_ktbhK8wbS0s3btYL8McFT58hzDmV-Bacrlwt_-iXewf0UYaC-zo4hmlDk-TV4jh8KRSs5Lq6Dpp-wJoYM3BlrpQOuzZQgl4Os3G2TMjXignHg7FTsf5hwFm6sr8sYJem6h5u_pom7ngWcXFIsDQ3dB5gWyJy7NEVgJQtjRpcjG6HdlR_HiW1b98JgKwgzDFZuvZDwwL9Fo6dtK6wIfdUKrKVkeDMtrILbUFX");'></div>
 </div>
-<div class="flex items-center justify-end">
-<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-transparent text-current">
-<span class="material-symbols-outlined">notifications</span>
+<div class="flex w-12 items-center justify-end">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 bg-transparent text-slate-800 dark:text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0">
 </button>
 </div>
-</header>
-<main class="flex-1 pb-24">
-<!-- Circular Progress Gauge -->
-<div class="px-4 py-6">
-<div class="relative mx-auto flex h-48 w-48 items-center justify-center">
-<svg class="absolute inset-0 size-full -rotate-90 transform" viewbox="0 0 100 100">
-<circle class="stroke-current text-gray-200 dark:text-gray-700" cx="50" cy="50" fill="transparent" r="45" stroke-width="10"></circle>
-<circle class="stroke-current text-secondary transition-all duration-1000 ease-out" cx="50" cy="50" fill="transparent" r="45" stroke-dasharray="282.74" stroke-dashoffset="42.41" stroke-linecap="round" stroke-width="10"></circle>
-</svg>
-<div class="text-center">
-<span class="text-4xl font-extrabold text-text-light dark:text-text-dark">85</span>
-<p class="text-sm font-medium text-subtext-light dark:text-subtext-dark">Salud Financiera</p>
 </div>
+<p class="text-slate-800 dark:text-white tracking-tight text-[28px] font-bold leading-tight">Good morning, Alex</p>
 </div>
-</div>
-<!-- Text Grid (KPI Cards) -->
-<div class="grid grid-cols-2 gap-3 px-4">
-<div class="flex flex-1 gap-3 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark p-4 flex-col">
-<span class="material-symbols-outlined text-secondary">receipt_long</span>
-<div class="flex flex-col gap-1">
-<h2 class="text-sm font-bold">Control de gastos</h2>
-<div class="flex items-center gap-1.5">
-<div class="size-2 rounded-full bg-secondary"></div>
-<p class="text-xs text-subtext-light dark:text-subtext-dark">Bueno</p>
-</div>
-</div>
-</div>
-<div class="flex flex-1 gap-3 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark p-4 flex-col">
-<span class="material-symbols-outlined text-secondary">savings</span>
-<div class="flex flex-col gap-1">
-<h2 class="text-sm font-bold">Ahorro y metas</h2>
-<div class="flex items-center gap-1.5">
-<div class="size-2 rounded-full bg-secondary"></div>
-<p class="text-xs text-subtext-light dark:text-subtext-dark">Bueno</p>
-</div>
-</div>
-</div>
-<div class="flex flex-1 gap-3 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark p-4 flex-col">
-<span class="material-symbols-outlined text-warning">credit_card</span>
-<div class="flex flex-col gap-1">
-<h2 class="text-sm font-bold">Uso de crédito</h2>
-<div class="flex items-center gap-1.5">
-<div class="size-2 rounded-full bg-warning"></div>
-<p class="text-xs text-subtext-light dark:text-subtext-dark">En riesgo</p>
-</div>
-</div>
-</div>
-<div class="flex flex-1 gap-3 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark p-4 flex-col">
-<span class="material-symbols-outlined text-secondary">task_alt</span>
-<div class="flex flex-col gap-1">
-<h2 class="text-sm font-bold">Pagos a tiempo</h2>
-<div class="flex items-center gap-1.5">
-<div class="size-2 rounded-full bg-secondary"></div>
-<p class="text-xs text-subtext-light dark:text-subtext-dark">Excelente</p>
+<!-- Balance Overview Card -->
+<div class="p-4 @container">
+<div class="flex flex-col items-stretch justify-start rounded-xl bg-gray-200/50 dark:bg-gray-700/50 p-6 @xl:items-start">
+<div class="flex w-full min-w-72 grow flex-col items-stretch justify-center gap-1">
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal leading-normal">Current Balance</p>
+<div class="flex items-end gap-3 justify-between">
+<p class="text-slate-900 dark:text-white text-4xl font-bold leading-tight tracking-tighter">$2,480.50</p>
+<p class="text-emerald-500 dark:text-emerald-400 text-base font-medium leading-normal">+$50 this week</p>
 </div>
 </div>
 </div>
 </div>
 <!-- Section Header -->
-<h2 id="forecast" class="text-xl font-bold tracking-tight px-4 pb-0 pt-8">Gráfica de Predicción de Flujo</h2>
+<h2 id="forecast" class="text-xl font-bold tracking-tight px-4 pb-0 pt-4">Gráfica de Predicción de Flujo</h2>
 <!-- Segmented Buttons -->
 <div class="flex px-4 py-3">
 <div class="flex h-10 flex-1 items-center justify-center rounded-lg bg-gray-200/50 dark:bg-gray-700/50 p-1">
 <label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 text-sm font-medium leading-normal text-subtext-light dark:text-subtext-dark has-[:checked]:bg-background-light has-[:checked]:dark:bg-background-dark has-[:checked]:shadow-sm has-[:checked]:text-text-light has-[:checked]:dark:text-text-dark">
-<span class="truncate">7 días</span>
+<span class="truncate">Today</span>
 <input class="invisible w-0" name="prediction-period" type="radio" value="7 días"/>
 </label>
 <label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 text-sm font-medium leading-normal text-subtext-light dark:text-subtext-dark has-[:checked]:bg-background-light has-[:checked]:dark:bg-background-dark has-[:checked]:shadow-sm has-[:checked]:text-text-light has-[:checked]:dark:text-text-dark">
-<span class="truncate">30 días</span>
+<span class="truncate">1 Month</span>
+<input checked="" class="invisible w-0" name="prediction-period" type="radio" value="30 días"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 text-sm font-medium leading-normal text-subtext-light dark:text-subtext-dark has-[:checked]:bg-background-light has-[:checked]:dark:bg-background-dark has-[:checked]:shadow-sm has-[:checked]:text-text-light has-[:checked]:dark:text-text-dark">
+<span class="truncate">3 Month</span>
 <input checked="" class="invisible w-0" name="prediction-period" type="radio" value="30 días"/>
 </label>
 </div>
@@ -154,13 +114,8 @@
 </div>
 <!-- Graph Actions & Status -->
 <div class="px-4 py-3 flex flex-col gap-3">
-<div class="flex items-center justify-between">
-<p class="text-sm font-medium">Riesgo de flujo: <span class="font-bold text-secondary">Bajo</span></p>
-<div class="flex items-center gap-2">
-<input type="checkbox" class="w-4 h-4 accent-primary">
-<a href="acciones.html" class="text-sm font-medium text-subtext-light dark:text-subtext-dark cursor-pointer hover:text-primary transition-colors">Acciones Recomendadas</a>
-<a href="acciones.html" class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-bold text-white bg-gradient-to-r from-primary to-secondary rounded-full shadow-md animate-glow hover:text-white">3</a>
-</div>
+<div class="flex items-center justify-center">
+<button onclick="window.location.href='acciones.html'" class="px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors">¿Cómo Mejorar? - Acciones Recomendadas</button>
 </div>
 </div>
 <!-- Primary Visualization Chart (Donut Chart) -->
@@ -256,7 +211,7 @@ function processTransfer() {
   document.getElementById('paymentModal').classList.add('hidden');
 }
 </script>
-
+<!-- <div id="root"></div> -->
 <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>
