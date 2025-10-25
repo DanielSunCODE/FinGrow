@@ -1,9 +1,9 @@
-import {Typography} from "@mui/material";
+import {Container} from "@mui/material";
 
 export default function Home() {
     return (
-        <Typography variant={'h1'}>
-            Home
-        </Typography>
+        <Container maxWidth={false} disableGutters>
+
+        </Container>
     );
 }
