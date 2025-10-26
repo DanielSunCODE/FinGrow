@@ -1,17 +1,16 @@
 import {
     Box,
-    ToggleButtonGroup,
-    ToggleButton,
-    Typography,
     Button,
     Card,
     CardContent,
     LinearProgress,
     Stack,
-    Icon
+    ToggleButton,
+    ToggleButtonGroup,
+    Typography
 } from '@mui/material';
-import { ShowChart } from '@mui/icons-material';
-import { useState, type MouseEvent } from 'react';
+import {ShowChart} from '@mui/icons-material';
+import {type MouseEvent, useState} from 'react';
 import {TopAppBar} from "../components/TopAppBar.tsx";
 
 type PredictionPeriod = 'today' | '1month' | '3month';
@@ -74,7 +73,7 @@ export default function Home () {
 
             {/* Prediction Period Toggle */}
             <Box sx={{ px: 2, py: 1.5 }}>
-                <Typography variant="h6" fontWeight="bold" sx={{ mb: 1 }}></Typography>
+                <Typography variant="h6" fontWeight={500} sx={{ mb: 1 }}>Your forecast</Typography>
 
                 <ToggleButtonGroup
                     value={predictionPeriod}
@@ -165,10 +164,17 @@ export default function Home () {
                             fontSize: '0.875rem',
                             fontWeight: 500,
                             borderRadius: 2,
-                            textTransform: 'none'
+                            textTransform: 'none',
+                            backgroundColor: 'background.paper',
+                            border: 0,
+                            '&:hover': {
+                                backgroundColor: 'grey.600',
+                            }
                         }}
                     >
-                        ¿Cómo Mejorar? - Acciones Recomendadas
+                        <Typography variant={'body1'} color={'text.primary'} fontWeight={600}>
+                            Improve your cash flow
+                        </Typography>
                     </Button>
                 </Stack>
             </Box>
@@ -188,10 +194,10 @@ export default function Home () {
                 >
                     <CardContent sx={{ p: 2, backgroundColor: 'background.default' }}>
                         <Typography variant="h6" fontWeight="bold">
-                            Meta principal: Viaje a la playa
+                            Main goal: Trip to Japan
                         </Typography>
 
-                        <Box sx={{ mt: 1.5, display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 2 }}>
+                        <Box sx={{ mt: 1.5, display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 2, border: 0 }}>
                             <Typography variant="h5" fontWeight="bold">
                                 $1,200{' '}
                                 <Typography
@@ -200,18 +206,18 @@ export default function Home () {
                                     color="text.secondary"
                                     fontWeight="normal"
                                 >
-                                    de $5,000
+                                    out of $5,000
                                 </Typography>
                             </Typography>
                             <Typography variant="body2" fontWeight="medium" color="text.secondary">
-                                ETA: Dic 2024
+                                ETC: Dec 2025
                             </Typography>
                         </Box>
 
                         <Box sx={{ mt: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
                             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <Typography variant="body2" fontWeight="medium" color="secondary.main">
-                                    24% completado
+                                    24% completed
                                 </Typography>
                             </Box>
                             <LinearProgress
@@ -236,10 +242,11 @@ export default function Home () {
                                 fontSize: '1rem',
                                 fontWeight: 'bold',
                                 borderRadius: 2,
-                                textTransform: 'none'
+                                textTransform: 'none',
+                                boxShadow: 0
                             }}
                         >
-                            Aportar $200 hoy
+                            <Typography variant={'body1'} fontWeight={600}>Check your goal</Typography>
                         </Button>
                     </CardContent>
                 </Card>

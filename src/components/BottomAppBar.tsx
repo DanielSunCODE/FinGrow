@@ -6,11 +6,11 @@ import {
 } from '@mui/icons-material';
 
 interface BottomNavigationProps {
-    page: number;
-    setPage: (page: number) => void;
+    index: number;
+    onClick: (page: number) => void;
 }
 
-export default function BottomNavBar({page, setPage}: BottomNavigationProps) {
+export default function BottomNavBar({index, onClick}: BottomNavigationProps) {
     return (
         <Paper
             sx={{
@@ -28,8 +28,8 @@ export default function BottomNavBar({page, setPage}: BottomNavigationProps) {
         >
             <Box sx={{ maxWidth: 'sm', mx: 'auto' }}>
                 <MuiBottomNavigation
-                    value={page}
-                    onChange={(_event, value: number ) => setPage(value)}
+                    value={index}
+                    onChange={(_event, value: number ) => onClick(value)}
                     sx={{
                         height: 64,
                         bgcolor: 'transparent',
@@ -49,21 +49,36 @@ export default function BottomNavBar({page, setPage}: BottomNavigationProps) {
                     }}
                 >
                     <BottomNavigationAction
-                        label={"Inicio"}
+                        label={"Home"}
                         icon={<DashboardIcon />}
-                        onClick={() => setPage(0)}
+                        onClick={() => onClick(0)}
+                        sx={{
+                            '& .MuiBottomNavigationAction-label': {
+                                paddingTop: '4px',
+                            }
+                        }}
                         showLabel
                     />
                     <BottomNavigationAction
                         label={"Recomendaciones"}
                         icon={<RecommendIcon />}
-                        onClick={() => setPage(1)}
+                        onClick={() => onClick(1)}
+                        sx={{
+                            '& .MuiBottomNavigationAction-label': {
+                                paddingTop: '4px',
+                            }
+                        }}
                         showLabel
                     />
                     <BottomNavigationAction
-                        label={"Metas"}
+                        label={"Goals"}
                         icon={<DonutSmallIcon />}
-                        onClick={() => setPage(2)}
+                        onClick={() => onClick(2)}
+                        sx={{
+                            '& .MuiBottomNavigationAction-label': {
+                                paddingTop: '4px',
+                            }
+                        }}
                         showLabel
                     />
                 </MuiBottomNavigation>

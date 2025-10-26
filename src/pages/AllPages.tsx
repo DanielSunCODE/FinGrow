@@ -3,14 +3,14 @@ import Home from "./Home.tsx";
 import Recommendations from "./Recommendations.tsx";
 import GoalsOverview from "./GoalsOverview.tsx";
 
-interface AllPagesProps {
-    name: 'Inicio' | 'Recomendaciones' | 'Metas';
+export interface AllPagesType {
+    name: 'Home' | 'Recomendaciones' | 'Goals';
     Element: () => JSX.Element;
 }
 
-export const AllPages: AllPagesProps[] = [
+export const AllPages: AllPagesType[] = [
     {
-        name: 'Inicio',
+        name: 'Home',
         Element: Home
     },
     {
@@ -18,7 +18,7 @@ export const AllPages: AllPagesProps[] = [
         Element: Recommendations
     },
     {
-        name: 'Metas',
+        name: 'Goals',
         Element: GoalsOverview
     }
-];
+] as const;
