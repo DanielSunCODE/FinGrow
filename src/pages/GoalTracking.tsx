@@ -22,10 +22,12 @@ import {
     ChevronRight,
     Dashboard,
     DonutSmall,
+    EmojiEvents,
     MoreVert,
     Recommend,
     Subscriptions,
     TaskAlt,
+    TrackChanges,
     TrendingUp
 } from '@mui/icons-material';
 import type {Goal} from '../types/Goal';
@@ -96,14 +98,14 @@ export default function GoalTracking () {
     const actionSteps = [
         {
             id: 'recurring-transfer',
-            icon: <AccountBalance color="primary" />,
+            icon: <EmojiEvents color="primary" />,
             title: 'Set up a recurring transfer',
             description: 'Automate your savings to reach your goal faster.',
             completed: false
         },
         {
             id: 'review-subscriptions',
-            icon: <Subscriptions color="primary" />,
+            icon: <EmojiEvents color="primary" />,
             title: 'Review subscription spending',
             description: 'Find extra cash by canceling unused services.',
             completed: false
@@ -187,21 +189,21 @@ export default function GoalTracking () {
                                 justifyContent: 'center'
                             }}
                         >
-                            <Typography variant="h2" fontWeight="bold" color="primary">
+                            <Typography variant="h3" fontWeight="bold" color="primary">
                                 {goal.progress}%
                             </Typography>
-                            <Typography variant="body2" color="text.secondary">
+                            <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.75rem' }}>
                                 Complete
                             </Typography>
                         </Box>
                     </Box>
-                    <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>
+                    <Typography variant="body1" color="grey.800" sx={{ mt: 2 }}>
                         You've saved{' '}
-                        <Typography component="span" fontWeight="bold" color="text.primary">
+                        <Typography component="span" color="grey.800" fontWeight="bold">
                             ${goal.currentAmount.toLocaleString()}
                         </Typography>
                         {' '}of your{' '}
-                        <Typography component="span" fontWeight="bold" color="text.primary">
+                        <Typography component="span" color="grey.800" fontWeight="bold">
                             ${goal.targetAmount.toLocaleString()}
                         </Typography>
                         {' '}goal.
@@ -217,7 +219,7 @@ export default function GoalTracking () {
                                     <Typography variant="body2" color="text.secondary" fontWeight="medium">
                                         Amount Saved
                                     </Typography>
-                                    <Typography variant="h4" fontWeight="bold" sx={{ letterSpacing: '-1px', mt: 0.5 }}>
+                                    <Typography variant="h5" fontWeight="bold" sx={{ letterSpacing: '-1px', mt: 0.5, color: 'grey.900' }}>
                                         ${goal.currentAmount.toLocaleString()}
                                     </Typography>
                                 </CardContent>
@@ -229,7 +231,7 @@ export default function GoalTracking () {
                                     <Typography variant="body2" color="text.secondary" fontWeight="medium">
                                         Remaining
                                     </Typography>
-                                    <Typography variant="h4" fontWeight="bold" sx={{ letterSpacing: '-1px', mt: 0.5 }}>
+                                    <Typography variant="h5" fontWeight="bold" sx={{ letterSpacing: '-1px', mt: 0.5, color: 'grey.900'}}>
                                         ${remainingAmount.toLocaleString()}
                                     </Typography>
                                 </CardContent>
@@ -241,7 +243,7 @@ export default function GoalTracking () {
                                     <Typography variant="body2" color="text.secondary" fontWeight="medium">
                                         Projected Date
                                     </Typography>
-                                    <Typography variant="h4" fontWeight="bold" sx={{ letterSpacing: '-1px', mt: 0.5 }}>
+                                    <Typography variant="h5" fontWeight="bold" sx={{ letterSpacing: '-1px', mt: 0.5, color: 'grey.900'}}>
                                         {goal.eta}
                                     </Typography>
                                 </CardContent>
@@ -257,18 +259,18 @@ export default function GoalTracking () {
                             icon={<TrendingUp sx={{ color: 'success.main', fontSize: '2rem' }} />}
                             severity="info"
                             sx={{
-                                backgroundColor: 'primary.main',
-                                color: 'primary.contrastText',
+                                backgroundColor: '#88bafb31',
+                                color: 'inherit',
                                 borderRadius: 3,
                                 '& .MuiAlert-icon': {
                                     color: 'success.main'
                                 }
                             }}
                         >
-                            <Typography variant="body1" fontWeight="bold" sx={{ mb: 0.5 }}>
+                            <Typography variant="body1" fontWeight="bold" sx={{ mb: 0.5, color: 'primary.main' }}>
                                 You're ahead of schedule!
                             </Typography>
-                            <Typography variant="body2">
+                            <Typography variant="body2" sx={{ color: 'grey.600' }}>
                                 Your consistent contributions have put you on the fast track.
                             </Typography>
                         </Alert>
@@ -310,7 +312,7 @@ export default function GoalTracking () {
                                                 height: 48
                                             }}
                                         >
-                                            {step.icon}
+                                            {step.completed ? <TaskAlt /> : <TrackChanges />}
                                         </Avatar>
 
                                         <Box sx={{ flexGrow: 1 }}>
