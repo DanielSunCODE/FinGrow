@@ -27,6 +27,9 @@ import type {Goal} from '../types/Goal';
 import {useParams} from 'react-router-dom';
 import usePageContext from "../hooks/usePageContext.tsx";
 import useTheme from "../hooks/useTheme.tsx";
+import useAccounts from "../hooks/useAccounts.ts";
+import useGoals from "../hooks/useGoals.tsx";
+import LoadingComponent from "../components/LoadingComponent.tsx";
 
 export default function GoalTracking () {
     const {id} = useParams();
@@ -35,43 +38,13 @@ export default function GoalTracking () {
 
     const borderColor: string = isDarkMode ? "1px solid rgba(0,0,0,0.1)" : "1px solid #e0e0e0";
 
-    const [goals, setGoals] = useState<Goal[]>([
-        {
-            id: '1',
-            name: 'Japan Trip',
-            type: 'Travel',
-            currentAmount: 1500,
-            targetAmount: 5000,
-            progress: 30,
-            eta: 'Dec 2024',
-            isCompleted: false
-        },
-        {
-            id: '2',
-            name: 'New Car Down Payment',
-            type: 'Savings',
-            currentAmount: 8000,
-            targetAmount: 10000,
-            progress: 80,
-            eta: 'May 2025',
-            isCompleted: false
-        },
-        {
-            id: '3',
-            name: 'Emergency Fund',
-            type: 'Savings',
-            currentAmount: 12000,
-            targetAmount: 12000,
-            progress: 100,
-            eta: 'Completed',
-            isCompleted: true
-        }
-    ]);
+    const {data: account, isLoading: isAccountLoading} = useAccounts();
+    const {data: goals, isLoading: isGoalsLoading} = useGoals(account?.id ?? 1); // Sorry, mooooooom
 
-    const goal: Goal = goals.find(g => g.id === id) ?? goals[0];
+    const goal: Goal = goals?.find(g => g.GoalId == id) ?? goals?.[0] ?? [];
 
     const { setNavBarTitle } = usePageContext();
-    setNavBarTitle(goal.name);
+    setNavBarTitle(goal.Description);
 
 
     const [bottomNavValue, setBottomNavValue] = useState(2); // Goals is active
@@ -93,10 +66,10 @@ export default function GoalTracking () {
         // Empty function
     };
 
-    const remainingAmount = goal.targetAmount - goal.currentAmount;
+    const remainingAmount = goal.TargetAmount - goal.CurrentAmount;
 
     // Calculate if ahead of schedule (mock logic)
-    const isAheadOfSchedule = goal.progress > 60;
+    const isAheadOfSchedule = remainingAmount * 100 > 60;
 
     const actionSteps = [
         {
@@ -121,6 +94,8 @@ export default function GoalTracking () {
             completed: true
         }
     ];
+
+    if (isAccountLoading || isGoalsLoading) return <LoadingComponent sx={{ height: 100 }} />
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>

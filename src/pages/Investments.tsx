@@ -207,7 +207,7 @@ export default function Investments() {
                             xAxis={[{
                                 data: dataSeries?.dates.map(date => new Date(date).getTime()) ?? [],
                                 label: 'Days',
-                                scaleType: 'time', // 👈 very important for dates
+                                scaleType: 'time',
                             }]}
                             series={[
                                 {
