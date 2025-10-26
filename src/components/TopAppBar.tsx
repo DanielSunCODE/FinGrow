@@ -2,10 +2,13 @@ import {AppBar, Avatar, Box, IconButton, Toolbar, Typography,} from '@mui/materi
 import usePageContext from "../hooks/usePageContext.tsx";
 import {AllPages} from "../pages/AllPages.tsx";
 import {ArrowBack} from "@mui/icons-material";
+import useTheme from "../hooks/useTheme.tsx";
+import {Contrast} from "@mui/icons-material";
 
 export const TopAppBar = () => {
     const { page, setPage, navbarTitle } = usePageContext();
     const renderHomeBar: boolean = page.name == AllPages[0].name;
+    const { isDarkMode, toggleDarkMode } = useTheme();
 
     return (
         <Box>
@@ -27,8 +30,8 @@ export const TopAppBar = () => {
                                 sx={{ width: 40, height: 40 }}
                             />
                             <Box sx={{ flex: 1 }} />
-                            <IconButton sx={{ p: 0 }}>
-                                {/* Add menu or settings icon here if needed */}
+                            <IconButton onClick={()=> toggleDarkMode()} sx={{ p: 0 }}>
+                                <Contrast />
                             </IconButton>
                         </Box>
 

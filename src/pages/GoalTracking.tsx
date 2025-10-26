@@ -26,9 +26,14 @@ import {
 import type {Goal} from '../types/Goal';
 import {useParams} from 'react-router-dom';
 import usePageContext from "../hooks/usePageContext.tsx";
+import useTheme from "../hooks/useTheme.tsx";
 
 export default function GoalTracking () {
     const {id} = useParams();
+    const { isDarkMode } = useTheme();
+
+
+    const borderColor: string = isDarkMode ? "1px solid rgba(0,0,0,0.1)" : "1px solid #e0e0e0";
 
     const [goals, setGoals] = useState<Goal[]>([
         {
@@ -120,7 +125,7 @@ export default function GoalTracking () {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             {/* Main Content */}
-            <Box component="main" sx={{ flexGrow: 1, pb: 14, backgroundColor:'background.paper'}}>
+            <Box component="main" sx={{ flexGrow: 1, pb: 14, backgroundColor:'background.default'}}>
                 {/* Goal Progress Visualizer */}
                 <Box sx={{ p: 2, pt: 4, textAlign: 'center' }}>
                     <Box sx={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -135,20 +140,7 @@ export default function GoalTracking () {
                                     strokeLinecap: 'round',
                                 }
                             }}
-                        />
-                        <CircularProgress
-                            variant="determinate"
-                            value={100}
-                            size={192}
-                            thickness={4}
-                            sx={{
-                                color: 'action.disabled',
-                                position: 'absolute',
-                                left: 0,
-                                '& .MuiCircularProgress-circle': {
-                                    strokeLinecap: 'round',
-                                }
-                            }}
+                            enableTrackSlot
                         />
                         <Box
                             sx={{
@@ -159,10 +151,10 @@ export default function GoalTracking () {
                                 justifyContent: 'center'
                             }}
                         >
-                            <Typography variant="h3" sx={{color: goal.progress === 100 ? 'success.main' : 'primary.main', fontWeight:"bold"}}>
+                            <Typography variant="h3" sx={{color: goal.progress === 100 ? 'success.main' : 'primary.main', fontWeight: 600}}>
                                 {goal.progress}%
                             </Typography>
-                            <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.75rem' }}>
+                            <Typography variant="body2" color="text.disabled">
                                 Complete
                             </Typography>
                         </Box>
@@ -184,36 +176,36 @@ export default function GoalTracking () {
                 <Box sx={{ p: 2 }}>
                     <Grid container spacing={1.5}>
                         <Grid size={6}>
-                            <Card sx={{ borderRadius: 3, backgroundColor:"white", boxShadow: "none", border:"1px solid #e0e0e0" }}>
+                            <Card sx={{ borderRadius: 3,  boxShadow: "none", backgroundColor: 'background.default', border: borderColor }}>
                                 <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
                                     <Typography variant="body2" color="text.secondary" fontWeight="medium">
                                         Amount Saved
                                     </Typography>
-                                    <Typography variant="h5" fontWeight="bold" sx={{ letterSpacing: '-1px', mt: 0.5, color: 'grey.900' }}>
+                                    <Typography variant="h5" fontWeight="bold" sx={{ letterSpacing: '-1px', mt: 0.5, color: 'text.primary' }}>
                                         ${goal.currentAmount.toLocaleString()}
                                     </Typography>
                                 </CardContent>
                             </Card>
                         </Grid>
                         <Grid size={6}>
-                            <Card sx={{ borderRadius: 3, backgroundColor:"white", boxShadow: "none", border:"1px solid #e0e0e0" }}>
+                            <Card sx={{ borderRadius: 3, backgroundColor: 'background.default', border: borderColor, boxShadow: "none" }}>
                                 <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
                                     <Typography variant="body2" color="text.secondary" fontWeight="medium">
                                         Remaining
                                     </Typography>
-                                    <Typography variant="h5" fontWeight="bold" sx={{ letterSpacing: '-1px', mt: 0.5, color: 'grey.900'}}>
+                                    <Typography variant="h5" fontWeight="bold" sx={{ letterSpacing: '-1px', mt: 0.5, color: 'text.primary'}}>
                                         ${remainingAmount.toLocaleString()}
                                     </Typography>
                                 </CardContent>
                             </Card>
                         </Grid>
                         <Grid size={12}>
-                            <Card sx={{ borderRadius: 3, backgroundColor:"white", boxShadow: "none", border:"1px solid #e0e0e0" }}>
+                            <Card sx={{ borderRadius: 3, backgroundColor: 'background.default', border: borderColor, boxShadow: "none" }}>
                                 <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
                                     <Typography variant="body2" color="text.secondary" fontWeight="medium">
                                         Projected Date
                                     </Typography>
-                                    <Typography variant="h5" fontWeight="bold" sx={{ letterSpacing: '-1px', mt: 0.5, color: 'grey.900'}}>
+                                    <Typography variant="h5" fontWeight="bold" sx={{ letterSpacing: '-1px', mt: 0.5, color: 'text.primary'}}>
                                         {goal.eta}
                                     </Typography>
                                 </CardContent>
@@ -226,21 +218,22 @@ export default function GoalTracking () {
                 {isAheadOfSchedule && (
                     <Box sx={{ p: 2, pt: 1 }}>
                         <Alert
-                            icon={<TrendingUp sx={{ color: 'success.main', fontSize: '2rem' }} />}
+                            icon={<TrendingUp sx={{ color: 'text.primary', fontSize: '2rem' }} />}
                             severity="info"
                             sx={{
                                 backgroundColor: '#88bafb31',
                                 color: 'inherit',
                                 borderRadius: 3,
                                 '& .MuiAlert-icon': {
-                                    color: 'success.main'
+                                    color: 'secondary',
+                                    margin: 'auto 12px auto 0',
                                 }
                             }}
                         >
                             <Typography variant="body1" fontWeight="bold" sx={{ mb: 0.5, color: 'primary.main' }}>
                                 You're ahead of schedule!
                             </Typography>
-                            <Typography variant="body2" sx={{ color: 'grey.600' }}>
+                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                                 Your consistent contributions have put you on the fast track.
                             </Typography>
                         </Alert>
@@ -266,8 +259,8 @@ export default function GoalTracking () {
                                     borderRadius: 3,
                                     cursor: 'pointer',
                                     boxShadow: 0,
-                                    backgroundColor: 'white',
-                                    border: '1px solid #e0e0e0',
+                                    backgroundColor: 'background.default',
+                                    border: borderColor,
                                     opacity: step.completed ? 0.6 : 1,
                                     '&:hover': {
                                         boxShadow: 2
@@ -306,19 +299,19 @@ export default function GoalTracking () {
 
                                         <Box
                                             sx={{
-                                                width: 32,
-                                                height: 32,
+                                                fontSize: 22,
                                                 borderRadius: '50%',
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
+                                                p: 0.4,
                                                 backgroundColor: step.completed ? 'success.main' : 'transparent',
                                                 border: step.completed ? 'none' : 1,
                                                 borderColor: 'divider',
                                                 color: step.completed ? 'success.contrastText' : 'text.secondary'
                                             }}
                                         >
-                                            {step.completed ? <Check /> : <ChevronRight />}
+                                            {step.completed ? <Check fontSize={'inherit'} /> : <ChevronRight fontSize={'inherit'} color={'disabled'}/>}
                                         </Box>
                                     </Box>
                                 </CardContent>

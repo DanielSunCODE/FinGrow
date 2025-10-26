@@ -103,14 +103,14 @@ export default function Home () {
                         }
                     }}
                 >
-                    <ToggleButton value="today">
-                        <Typography variant="body2" color="text.secondary">Today</Typography>
-                    </ToggleButton>
                     <ToggleButton value="1month">
                         <Typography variant="body2" color="text.secondary">1 Month</Typography>
                     </ToggleButton>
                     <ToggleButton value="3month">
                         <Typography variant="body2" color="text.secondary">3 Months</Typography>
+                    </ToggleButton>
+                    <ToggleButton value="6month">
+                        <Typography variant="body2" color="text.secondary">6 Months</Typography>
                     </ToggleButton>
                 </ToggleButtonGroup>
             </Box>

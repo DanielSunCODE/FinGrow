@@ -1,13 +1,24 @@
 import {Box, Container, Fade} from "@mui/material";
 import BottomNavBar from "../components/BottomAppBar.tsx";
-import {type JSX} from "react";
+import {type JSX, useEffect} from "react";
 import {AllPages} from "./AllPages.tsx";
 import usePageContext from "../hooks/usePageContext.tsx";
 import {TopAppBar} from "../components/TopAppBar.tsx";
+import {useLocation} from "react-router-dom";
 
 export default function Main() {
     const { page, setPage } = usePageContext();
     const Content: () => JSX.Element = page.Element;
+
+    function ScrollToTop() {
+        const { pathname } = useLocation();
+
+        useEffect(() => {
+            window.scrollTo(0, 0);
+        }, [pathname]);
+
+        return null; // This component doesn't render anything
+    }
 
     return (
         <Container maxWidth={false} disableGutters>
@@ -15,8 +26,9 @@ export default function Main() {
                 <TopAppBar />
 
                 <Box>
-                    <Fade key={page.name} in={true} timeout={500}>
+                    <Fade key={page.name} in={true} timeout={200}>
                         <Box>
+                            <ScrollToTop />
                             <Content />
                         </Box>
                     </Fade>

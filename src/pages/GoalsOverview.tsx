@@ -1,7 +1,5 @@
-import {type SyntheticEvent, useState} from 'react';
+import {useState} from 'react';
 import {
-    BottomNavigation,
-    BottomNavigationAction,
     Box,
     Button,
     Card,
@@ -22,7 +20,7 @@ import {
     TextField,
     Typography
 } from '@mui/material';
-import {Add, CheckCircle, Dashboard, Delete, DonutSmall, Recommend} from '@mui/icons-material';
+import {Add, CheckCircle, Delete} from '@mui/icons-material';
 import type {Goal, GoalType} from "../types/Goal.ts";
 import {useNavigate} from "react-router-dom";
 import usePageContext from "../hooks/usePageContext.tsx";
@@ -68,7 +66,6 @@ export default function GoalsOverview() {
         }
     ]);
 
-    const [bottomNavValue, setBottomNavValue] = useState(2); // Goals is active
     const [addGoalModalOpen, setAddGoalModalOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [goalToDelete, setGoalToDelete] = useState<Goal | null>(null);
@@ -82,18 +79,9 @@ export default function GoalsOverview() {
 
     const goalTypes: GoalType[] = ['Savings', 'Travel', 'Entertainment', 'Relations', 'Education', 'Health'];
 
-    const handleBackClick = () => {
-        // Empty function
-    };
-
     const handleGoalClick = (goalId: string) => {
         navigate(`/goals/${goalId}`);
         setPage(AllPages[3])
-    };
-
-    const handleBottomNavChange = (_event: SyntheticEvent, newValue: number) => {
-        setBottomNavValue(newValue);
-        // Empty function
     };
 
     const handleAddGoalClick = () => {
@@ -107,11 +95,6 @@ export default function GoalsOverview() {
         setGoalAmount('');
         setTimeNumber('');
         setTimeUnit('months');
-    };
-
-    const handleCreateGoal = () => {
-        // Empty function
-        handleAddGoalClose();
     };
 
     const handleDeleteClick = (event: MouseEvent, goal: Goal) => {
@@ -157,7 +140,7 @@ export default function GoalsOverview() {
                                     transform: 'translateY(-2px)',
                                     boxShadow: 2
                                 },
-                                backgroundColor: 'background.default',
+                                backgroundColor: 'background.paper',
                                 border: 1,
                                 borderColor: 'rgba(0,0,0,0.1)'
                             }}
@@ -248,28 +231,6 @@ export default function GoalsOverview() {
             >
                 <Add sx={{ fontSize: '2rem' }} />
             </Fab>
-
-            {/* Bottom Navigation */}
-            <BottomNavigation
-                value={bottomNavValue}
-                onChange={handleBottomNavChange}
-                sx={{
-                    position: 'fixed',
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    maxWidth: 'sm',
-                    mx: 'auto',
-                    borderTop: 1,
-                    borderColor: 'divider',
-                    backgroundColor: 'background.paper',
-                    backdropFilter: 'blur(8px)'
-                }}
-            >
-                <BottomNavigationAction label="Home" icon={<Dashboard />} />
-                <BottomNavigationAction label="Tips" icon={<Recommend />} />
-                <BottomNavigationAction label="Goals" icon={<DonutSmall />} />
-            </BottomNavigation>
 
             {/* Add Goal Modal */}
             <Dialog
@@ -362,7 +323,7 @@ export default function GoalsOverview() {
                     </Button>
                     <Button
                         variant="contained"
-                        onClick={handleCreateGoal}
+                        onClick={handleAddGoalClose}
                         sx={{ flex: 1, textTransform: 'none', borderRadius: 2 }}
                     >
                         <Typography variant={'body1'} fontWeight={'500'}>Create Goal</Typography>
