@@ -182,16 +182,16 @@ export default function GoalsOverview() {
                                         </Typography>
                                         <IconButton
                                             size="small"
-                                            color="error"
                                             onClick={(e) => handleDeleteClick(e, goal)}
                                             sx={{
                                                 '&:hover': {
                                                     backgroundColor: 'error.light',
                                                     color: 'error.contrastText'
-                                                }
+                                                },
+                                                color: 'error.light'
                                             }}
                                         >
-                                            <Delete fontSize="small" />
+                                            <Delete fontSize="small" color={'inherit'} />
                                         </IconButton>
                                     </Box>
                                 </Box>

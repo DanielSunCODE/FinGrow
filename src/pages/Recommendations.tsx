@@ -97,10 +97,6 @@ export default function Recommendation() {
         }
     ];
 
-    const handleBackClick = () => {
-        navigate('/');
-    };
-
     const handleFilterChange = (category: FilterCategory) => {
         setSelectedFilter(category);
     };
@@ -380,6 +376,7 @@ export default function Recommendation() {
                             value={investmentAmount}
                             onChange={(e) => setInvestmentAmount(e.target.value)}
                             placeholder="1000"
+                            size={'small'}
                             fullWidth
                         />
 
@@ -389,6 +386,7 @@ export default function Recommendation() {
                                 value={investmentTerm}
                                 label="Term"
                                 onChange={(e) => setInvestmentTerm(e.target.value as number)}
+                                size={'small'}
                             >
                                 <MenuItem value={3}>3 months</MenuItem>
                                 <MenuItem value={6}>6 months</MenuItem>
@@ -396,8 +394,8 @@ export default function Recommendation() {
                         </FormControl>
 
                         {projectionResult && (
-                            <Box sx={{ backgroundColor: 'secondary.main', color: 'secondary.contrastText', p: 2, borderRadius: 2 }}>
-                                <Typography variant="h6" fontWeight="bold" sx={{ mb: 1 }}>
+                            <Box sx={{ backgroundColor: '#dff4f1', p: 2, borderRadius: 2 }}>
+                                <Typography variant="body1" fontWeight={600} color={'secondary'}>
                                     Projection:
                                 </Typography>
                                 <Typography variant="body2" sx={{ whiteSpace: 'pre-line' }}>
