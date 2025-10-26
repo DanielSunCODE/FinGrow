@@ -11,10 +11,14 @@ import {
 } from '@mui/material';
 import {ShowChart} from '@mui/icons-material';
 import {type MouseEvent, useState} from 'react';
-import {TopAppBar} from "../components/TopAppBar.tsx";
+import usePageContext from "../hooks/usePageContext.tsx";
+import {AllPages} from "./AllPages.tsx";
 
 type PredictionPeriod = 'today' | '1month' | '3month';
 export default function Home () {
+    const { setPage, setNavBarTitle } = usePageContext();
+    setNavBarTitle('Home');
+
     const [predictionPeriod, setPredictionPeriod] = useState<PredictionPeriod>('1month');
 
     const handlePredictionPeriodChange = (
@@ -27,7 +31,7 @@ export default function Home () {
     };
 
     const handleNavigateToActions = () => {
-        // Empty function
+        setPage(AllPages[1]);
     };
 
     const handleNavigateToGoals = () => {
@@ -41,8 +45,6 @@ export default function Home () {
 
     return (
         <Box sx={{ mb: 12 }}>
-            <TopAppBar />
-
             <Stack
                 direction={'column'}
                 sx={{
@@ -174,7 +176,7 @@ export default function Home () {
                         }}
                     >
                         <Typography variant={'body1'} color={'white'} fontWeight={600}>
-                            Improve your cash flow
+                            Learn how to improve it
                         </Typography>
                     </Button>
                 </Stack>

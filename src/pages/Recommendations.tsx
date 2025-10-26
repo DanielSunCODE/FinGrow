@@ -1,7 +1,6 @@
 import {type SyntheticEvent, useState} from 'react';
 import {
     Alert,
-    AppBar,
     BottomNavigation,
     BottomNavigationAction,
     Box,
@@ -20,11 +19,11 @@ import {
     Select,
     Stack,
     TextField,
-    Toolbar,
     Typography
 } from '@mui/material';
-import {ArrowBack, Close, Dashboard, DonutSmall, Recommend, ShowChart, TrendingUp} from '@mui/icons-material';
+import {Close, Dashboard, DonutSmall, Recommend, ShowChart, TrendingUp} from '@mui/icons-material';
 import {useNavigate} from 'react-router-dom';
+import usePageContext from "../hooks/usePageContext.tsx";
 
 type FilterCategory = 'ALL' | 'SAVINGS' | 'CREDIT' | 'SMALL EXPENSES' | 'ON-TIME PAYMENTS';
 
@@ -36,6 +35,9 @@ interface InvestmentOption {
 
 export default function Recommendation() {
     const navigate = useNavigate();
+
+    const { setNavBarTitle } = usePageContext();
+    setNavBarTitle('Recommendations for you');
 
     const [selectedFilter, setSelectedFilter] = useState<FilterCategory>('ALL');
     const [bottomNavValue, setBottomNavValue] = useState(1); // Recommendations is active
@@ -94,10 +96,6 @@ export default function Recommendation() {
             description: 'Money market account with 4.00% APY and flexible access to your money.'
         }
     ];
-
-    const handleBackClick = () => {
-        navigate('/');
-    };
 
     const handleFilterChange = (category: FilterCategory) => {
         setSelectedFilter(category);
@@ -160,28 +158,6 @@ export default function Recommendation() {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-            {/* Top App Bar */}
-            <AppBar
-                position="sticky"
-                elevation={0}
-                sx={{
-                    backgroundColor: 'background.default',
-                    color: 'text.primary',
-                    backdropFilter: 'blur(8px)',
-                    borderBottom: 0,
-                    borderColor: 'divider'
-                }}
-            >
-                <Toolbar sx={{ justifyContent: 'space-between', pt: 1 }}>
-                    <IconButton onClick={handleBackClick} color="inherit">
-                        <ArrowBack />
-                    </IconButton>
-                    <Typography variant={"body1"} fontWeight="600" sx={{ flexGrow: 1, textAlign: 'center' }}>
-                        Recommendations for you
-                    </Typography>
-                    <Box sx={{ width: 40 }} />
-                </Toolbar>
-            </AppBar>
 
             {/* Main Content */}
             <Box component="main" sx={{ flexGrow: 1, pb: 12 }}>
@@ -400,6 +376,7 @@ export default function Recommendation() {
                             value={investmentAmount}
                             onChange={(e) => setInvestmentAmount(e.target.value)}
                             placeholder="1000"
+                            size={'small'}
                             fullWidth
                         />
 
@@ -409,6 +386,7 @@ export default function Recommendation() {
                                 value={investmentTerm}
                                 label="Term"
                                 onChange={(e) => setInvestmentTerm(e.target.value as number)}
+                                size={'small'}
                             >
                                 <MenuItem value={3}>3 months</MenuItem>
                                 <MenuItem value={6}>6 months</MenuItem>
@@ -416,8 +394,8 @@ export default function Recommendation() {
                         </FormControl>
 
                         {projectionResult && (
-                            <Box sx={{ backgroundColor: 'secondary.main', color: 'secondary.contrastText', p: 2, borderRadius: 2 }}>
-                                <Typography variant="h6" fontWeight="bold" sx={{ mb: 1 }}>
+                            <Box sx={{ backgroundColor: '#dff4f1', p: 2, borderRadius: 2 }}>
+                                <Typography variant="body1" fontWeight={600} color={'secondary'}>
                                     Projection:
                                 </Typography>
                                 <Typography variant="body2" sx={{ whiteSpace: 'pre-line' }}>

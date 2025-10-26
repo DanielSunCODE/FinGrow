@@ -1,8 +1,9 @@
-import {Box, Container} from "@mui/material";
+import {Box, Container, Fade} from "@mui/material";
 import BottomNavBar from "../components/BottomAppBar.tsx";
 import {type JSX} from "react";
 import {AllPages} from "./AllPages.tsx";
 import usePageContext from "../hooks/usePageContext.tsx";
+import {TopAppBar} from "../components/TopAppBar.tsx";
 
 export default function Main() {
     const { page, setPage } = usePageContext();
@@ -11,7 +12,15 @@ export default function Main() {
     return (
         <Container maxWidth={false} disableGutters>
             <Box>
-                <Content />
+                <TopAppBar />
+
+                <Box>
+                    <Fade key={page.name} in={true} timeout={500}>
+                        <Box>
+                            <Content />
+                        </Box>
+                    </Fade>
+                </Box>
 
                 <BottomNavBar index={AllPages.indexOf(page)} onClick={(index) => setPage(AllPages[index])} />
             </Box>

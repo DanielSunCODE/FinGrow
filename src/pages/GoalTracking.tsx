@@ -1,7 +1,6 @@
 import {type SyntheticEvent, useState} from 'react';
 import {
     Alert,
-    AppBar,
     Avatar,
     BottomNavigation,
     BottomNavigationAction,
@@ -10,28 +9,23 @@ import {
     CardContent,
     CircularProgress,
     Grid,
-    IconButton,
     Stack,
-    Toolbar,
     Typography
 } from "@mui/material";
 import {
-    AccountBalance,
-    ArrowBack,
     Check,
     ChevronRight,
     Dashboard,
     DonutSmall,
     EmojiEvents,
-    MoreVert,
     Recommend,
-    Subscriptions,
     TaskAlt,
     TrackChanges,
     TrendingUp
 } from '@mui/icons-material';
 import type {Goal} from '../types/Goal';
 import {useParams} from 'react-router-dom';
+import usePageContext from "../hooks/usePageContext.tsx";
 
 export default function GoalTracking () {
     const {id} = useParams();
@@ -70,6 +64,10 @@ export default function GoalTracking () {
     ]);
 
     const goal: Goal = goals.find(g => g.id === id) ?? goals[0];
+
+    const { setNavBarTitle } = usePageContext();
+    setNavBarTitle(goal.name);
+
 
     const [bottomNavValue, setBottomNavValue] = useState(2); // Goals is active
 
@@ -121,34 +119,6 @@ export default function GoalTracking () {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-            {/* Top App Bar */}
-            <AppBar
-                position="sticky"
-                elevation={0}
-                sx={{
-                    backgroundColor: 'background.paper',
-                    color: 'text.primary',
-                    borderBottom: 1,
-                    borderColor: 'divider'
-                }}
-            >
-                <Toolbar sx={{ justifyContent: 'space-between', px: 2, pb: 1 }}>
-                    <IconButton onClick={handleBackClick} color="inherit">
-                        <ArrowBack />
-                    </IconButton>
-                    <Typography
-                        variant="h5"
-                        fontWeight="bold"
-                        sx={{ flexGrow: 1, textAlign: 'center', letterSpacing: '-0.5px' }}
-                    >
-                        {goal.name}
-                    </Typography>
-                    <IconButton onClick={handleMoreClick} color="inherit">
-                        <MoreVert />
-                    </IconButton>
-                </Toolbar>
-            </AppBar>
-
             {/* Main Content */}
             <Box component="main" sx={{ flexGrow: 1, pb: 14, backgroundColor:'background.paper'}}>
                 {/* Goal Progress Visualizer */}
