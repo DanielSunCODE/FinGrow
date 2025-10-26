@@ -9,4 +9,17 @@ export interface Goal {
     isCompleted: boolean;
 }
 
-export type GoalType = 'Savings' | 'Travel' | 'Entertainment' | 'Relations' | 'Education' | 'Health';
+export type GoalType = 'Savings' | 'Leisure' | 'Mobility' | 'Technology' | 'Education' | 'Health';
+
+// ! Remove the above interface and use this one instead after implementing the backend
+export default interface NewGoal {
+    Category: string;
+    CreatedAt: string;
+    CurrentAmount: number;
+    Deadline: string;
+    Description: string;
+    GoalId: number;
+    GoalName: string;
+    TargetAmount: number;
+    UserId: number;
+}

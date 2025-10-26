@@ -1,6 +1,6 @@
 import type {JSX} from "react";
 import Home from "./Home.tsx";
-import Recommendations from "./Recommendations.tsx";
+import Recommendations from "./Investments.tsx";
 import GoalsOverview from "./GoalsOverview.tsx";
 import GoalTracking from "./GoalTracking.tsx";
 
@@ -15,7 +15,7 @@ export const AllPages: AllPagesType[] = [
         Element: Home
     },
     {
-        name: 'Recomendaciones',
+        name: 'Investments',
         Element: Recommendations
     },
     {

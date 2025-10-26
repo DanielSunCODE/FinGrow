@@ -13,6 +13,7 @@ import {ShowChart} from '@mui/icons-material';
 import {type MouseEvent, useState} from 'react';
 import usePageContext from "../hooks/usePageContext.tsx";
 import {AllPages} from "./AllPages.tsx";
+import {LineChart, type HighlightScope} from "@mui/x-charts";
 
 type PredictionPeriod = 'today' | '1month' | '3month';
 export default function Home () {
@@ -115,42 +116,42 @@ export default function Home () {
                 </ToggleButtonGroup>
             </Box>
 
-            {/* Graph Placeholder */}
-            <Box sx={{ px: 2 }}>
+            {/* Graph */}
+            <Box sx={{ pr: 2 }}>
                 <Box
                     sx={{
-                        aspectRatio: '16/10',
-                        width: '100%',
+                        height: 250,
                         borderRadius: 2,
-                        bgcolor: 'action.hover',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
                 >
-                    <Box sx={{ textAlign: 'center', p: 2 }}>
-                        <ShowChart
-                            sx={{
-                                fontSize: '3rem',
-                                color: 'text.secondary',
-                                opacity: 0.5
-                            }}
-                        />
-                        <Typography
-                            variant="body2"
-                            color="text.secondary"
-                            sx={{ mt: 1 }}
-                        >
-                            Line chart representing cash flow prediction.
-                        </Typography>
-                        <Typography
-                            variant="caption"
-                            color="text.secondary"
-                            sx={{ opacity: 0.7 }}
-                        >
-                            Solid lines for historical, dashed for projected.
-                        </Typography>
-                    </Box>
+                    <LineChart
+                        xAxis={[{ data: [1, 2, 3, 5, 8, 10, 12, 14, 16, 18, 20, 22 ], label: 'Days' }]}
+                        series={[
+                            {
+                                data: [2, 5.5, 2, 8.5, 1.5, 5, 2.8, 5.57, 2.77, 8.57, 1.325, 9],
+                                highlightScope: {
+                                    highlight: 'series',
+                                    fade: 'global',
+                                },
+                                showMark: false,
+                                label: 'Balance'
+                            },
+                            {
+                                data: [3.12, 7.95, 4.01, 3.38, 2.50, 6.71, 1.99, 8.15, 5.43, 12.00, 4.25, 7.30],
+                                highlightScope: {
+                                    highlight: 'series',
+                                    fade: 'global',
+                                },
+                                showMark: false,
+                                label: 'Balance'
+                            },
+                        ]}
+                        grid={{horizontal: true, vertical: true}}
+                        hideLegend
+                    />
                 </Box>
             </Box>
 
@@ -177,6 +178,7 @@ export default function Home () {
                     >
                         <Typography variant={'body1'} color={'white'} fontWeight={600}>
                             Learn how to improve it
+                            {/*CAMBIAR ESTO POR UN INSIGHT*/}
                         </Typography>
                     </Button>
                 </Stack>

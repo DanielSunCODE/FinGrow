@@ -60,7 +60,7 @@ export default function BottomNavBar({index, onClick}: BottomNavigationProps) {
                         showLabel
                     />
                     <BottomNavigationAction
-                        label={"Recomendaciones"}
+                        label={"Investments"}
                         icon={<RecommendIcon />}
                         onClick={() => onClick(1)}
                         sx={{

@@ -21,9 +21,9 @@ import {
     TextField,
     Typography
 } from '@mui/material';
-import {Close, Dashboard, DonutSmall, Recommend, ShowChart, TrendingUp} from '@mui/icons-material';
-import {useNavigate} from 'react-router-dom';
+import {Close, Dashboard, DonutSmall, Recommend, TrendingUp} from '@mui/icons-material';
 import usePageContext from "../hooks/usePageContext.tsx";
+import {LineChart} from "@mui/x-charts";
 
 type FilterCategory = 'ALL' | 'SAVINGS' | 'CREDIT' | 'SMALL EXPENSES' | 'ON-TIME PAYMENTS';
 
@@ -33,11 +33,9 @@ interface InvestmentOption {
     description: string;
 }
 
-export default function Recommendation() {
-    const navigate = useNavigate();
-
+export default function Investments() {
     const { setNavBarTitle } = usePageContext();
-    setNavBarTitle('Recommendations for you');
+    setNavBarTitle('Invest, Save, and Grow');
 
     const [selectedFilter, setSelectedFilter] = useState<FilterCategory>('ALL');
     const [bottomNavValue, setBottomNavValue] = useState(1); // Recommendations is active
@@ -186,27 +184,41 @@ export default function Recommendation() {
                 </Box>
 
                 {/* Graph Placeholder */}
-                <Box sx={{ px: 2, pb: 4 }}>
+                <Box sx={{ pr: 2 }}>
                     <Box
                         sx={{
-                            aspectRatio: '16/10',
-                            width: '100%',
+                            height: 250,
                             borderRadius: 2,
-                            backgroundColor: 'action.hover',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center'
                         }}
                     >
-                        <Box sx={{ textAlign: 'center', p: 2 }}>
-                            <ShowChart sx={{ fontSize: '3rem', color: 'text.secondary', opacity: 0.5 }} />
-                            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                                Line chart representing cash flow prediction.
-                            </Typography>
-                            <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.7 }}>
-                                Solid lines for historical, dashed for projected.
-                            </Typography>
-                        </Box>
+                        <LineChart
+                            xAxis={[{ data: [1, 2, 3, 5, 8, 10, 12, 14, 16, 18, 20, 22 ], label: 'Days' }]}
+                            series={[
+                                {
+                                    data: [2, 5.5, 2, 8.5, 1.5, 5, 2.8, 5.57, 2.77, 8.57, 1.325, 9],
+                                    highlightScope: {
+                                        highlight: 'series',
+                                        fade: 'global',
+                                    },
+                                    showMark: false,
+                                    label: 'Balance'
+                                },
+                                {
+                                    data: [3.12, 7.95, 4.01, 3.38, 2.50, 6.71, 1.99, 8.15, 5.43, 12.00, 4.25, 7.30],
+                                    highlightScope: {
+                                        highlight: 'series',
+                                        fade: 'global',
+                                    },
+                                    showMark: false,
+                                    label: 'Balance'
+                                },
+                            ]}
+                            grid={{horizontal: true, vertical: true}}
+                            hideLegend
+                        />
                     </Box>
                 </Box>
 
@@ -398,7 +410,7 @@ export default function Recommendation() {
                                 <Typography variant="body1" fontWeight={600} color={'secondary'}>
                                     Projection:
                                 </Typography>
-                                <Typography variant="body2" sx={{ whiteSpace: 'pre-line' }}>
+                                <Typography variant="body1" color={'background.paper'} sx={{ whiteSpace: 'pre-line' }}>
                                     {projectionResult}
                                 </Typography>
                             </Box>
