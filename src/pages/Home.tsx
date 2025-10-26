@@ -9,21 +9,32 @@ import {
     ToggleButtonGroup,
     Typography
 } from '@mui/material';
-import {ShowChart} from '@mui/icons-material';
 import {type MouseEvent, useState} from 'react';
 import usePageContext from "../hooks/usePageContext.tsx";
 import {AllPages} from "./AllPages.tsx";
-import {LineChart, type HighlightScope} from "@mui/x-charts";
+import {LineChart} from "@mui/x-charts";
+import useAccounts from "../hooks/useAccounts.ts";
+import LoadingComponent from "../components/LoadingComponent.tsx";
+import useGoals from "../hooks/useGoals.tsx";
+import {useNavigate} from "react-router-dom";
+import {formatNumberWithComma} from "../utils/numberFormatConvert.ts";
+import useDataSeries from "../hooks/useDataSeries.ts";
 
 type PredictionPeriod = 'today' | '1month' | '3month';
 export default function Home () {
     const { setPage, setNavBarTitle } = usePageContext();
+    const navigate = useNavigate();
     setNavBarTitle('Home');
+
+    const {data: account, isLoading: isAccountLoading} = useAccounts();
+    const {data: goals, isLoading: isGoalsLoading} = useGoals(account?.id ?? 1); // Sorry, mom. There is only 2 hours left. I cannot take the time to make properly.
+
+    const {data: dataSeries, isLoading: isDataSeriesLoading} = useDataSeries(account?.id ?? 1);
 
     const [predictionPeriod, setPredictionPeriod] = useState<PredictionPeriod>('1month');
 
     const handlePredictionPeriodChange = (
-        _event: React.MouseEvent<HTMLElement>,
+        _event: MouseEvent<HTMLElement>,
         newPeriod: PredictionPeriod | null
     ) => {
         if (newPeriod !== null) {
@@ -36,13 +47,15 @@ export default function Home () {
     };
 
     const handleNavigateToGoals = () => {
-        // Empty function
+        navigate(`/goals/${0}`);
+        setPage(AllPages[3])
     };
 
     const handleContribute = (event: MouseEvent) => {
         event.stopPropagation();
-        // Empty function
     };
+
+    if (isAccountLoading || isGoalsLoading || isDataSeriesLoading) return <LoadingComponent sx={{ height: 100 }} />
 
     return (
         <Box sx={{ mb: 12 }}>
@@ -62,7 +75,7 @@ export default function Home () {
 
                     <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
                         <Typography variant={'h4'} color={'text.primary'} fontWeight={500}>
-                            $2,480.50
+                            ${formatNumberWithComma(account?.balance ?? 0)}
                         </Typography>
 
                         <Typography variant={'body1'} color={'success'} fontWeight={300}>
@@ -128,25 +141,29 @@ export default function Home () {
                     }}
                 >
                     <LineChart
-                        xAxis={[{ data: [1, 2, 3, 5, 8, 10, 12, 14, 16, 18, 20, 22 ], label: 'Days' }]}
+                        xAxis={[{
+                            data: dataSeries?.dates.map(date => new Date(date).getTime()) ?? [],
+                            label: 'Days',
+                            scaleType: 'time', // 👈 very important for dates
+                        }]}
                         series={[
                             {
-                                data: [2, 5.5, 2, 8.5, 1.5, 5, 2.8, 5.57, 2.77, 8.57, 1.325, 9],
+                                data: dataSeries?.scenarios.baseline ?? [],
                                 highlightScope: {
                                     highlight: 'series',
                                     fade: 'global',
                                 },
                                 showMark: false,
-                                label: 'Balance'
+                                label: 'Your standard balance forecast'
                             },
                             {
-                                data: [3.12, 7.95, 4.01, 3.38, 2.50, 6.71, 1.99, 8.15, 5.43, 12.00, 4.25, 7.30],
+                                data: dataSeries?.scenarios.combined ?? [],
                                 highlightScope: {
                                     highlight: 'series',
                                     fade: 'global',
                                 },
                                 showMark: false,
-                                label: 'Balance'
+                                label: 'Capital One Inversioning Boost'
                             },
                         ]}
                         grid={{horizontal: true, vertical: true}}
@@ -199,19 +216,19 @@ export default function Home () {
                 >
                     <CardContent sx={{ p: 2, backgroundColor: 'background.default' }}>
                         <Typography variant="h6" fontWeight="bold">
-                            Main goal: Trip to Japan
+                            Main goal: {goals?.at(0)?.Description ?? 'No goal set'}
                         </Typography>
 
                         <Box sx={{ mt: 1.5, display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 2, border: 0 }}>
                             <Typography variant="h5" fontWeight="bold">
-                                $1,200{' '}
+                                ${goals?.at(0)?.CurrentAmount} {' '}
                                 <Typography
                                     component="span"
                                     variant="body2"
                                     color="text.secondary"
                                     fontWeight="normal"
                                 >
-                                    out of $5,000
+                                    out of ${formatNumberWithComma(goals?.at(0)?.TargetAmount ?? 0)}
                                 </Typography>
                             </Typography>
                             <Typography variant="body2" fontWeight="medium" color="text.secondary">

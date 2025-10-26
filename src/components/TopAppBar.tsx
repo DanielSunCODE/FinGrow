@@ -4,11 +4,17 @@ import {AllPages} from "../pages/AllPages.tsx";
 import {ArrowBack} from "@mui/icons-material";
 import useTheme from "../hooks/useTheme.tsx";
 import {Contrast} from "@mui/icons-material";
+import useAccounts from "../hooks/useAccounts.ts";
+import LoadingComponent from "./LoadingComponent.tsx";
 
 export const TopAppBar = () => {
     const { page, setPage, navbarTitle } = usePageContext();
     const renderHomeBar: boolean = page.name == AllPages[0].name;
-    const { isDarkMode, toggleDarkMode } = useTheme();
+    const { toggleDarkMode } = useTheme();
+
+    const {data: account, isLoading: isAccountLoading} = useAccounts();
+
+    if (isAccountLoading) return <LoadingComponent sx={{ height: 100 }} />
 
     return (
         <Box>
@@ -44,7 +50,7 @@ export const TopAppBar = () => {
                                 lineHeight: 1.2,
                             }}
                         >
-                            Good morning, Alex
+                            Good morning, {account?.first_name}
                         </Typography>
                     </Box>
                 )

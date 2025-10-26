@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, type MouseEvent} from 'react';
 import {
     Box,
     Button,
@@ -25,6 +25,10 @@ import type {Goal, GoalType} from "../types/Goal.ts";
 import {useNavigate} from "react-router-dom";
 import usePageContext from "../hooks/usePageContext.tsx";
 import {AllPages} from "./AllPages.tsx";
+import useGoals from "../hooks/useGoals.tsx";
+import useAccounts from "../hooks/useAccounts.ts";
+import LoadingComponent from "../components/LoadingComponent.tsx";
+import {formatNumberWithComma} from "../utils/numberFormatConvert.ts";
 
 type TimeUnit = 'weeks' | 'months' | 'years';
 
@@ -33,38 +37,8 @@ export default function GoalsOverview() {
     const { setPage, setNavBarTitle } = usePageContext();
     setNavBarTitle('Your Goals');
 
-    const [goals, setGoals] = useState<Goal[]>([
-        {
-            id: '1',
-            name: 'Japan Trip',
-            type: 'Travel',
-            currentAmount: 1500,
-            targetAmount: 5000,
-            progress: 30,
-            eta: 'Dec 2024',
-            isCompleted: false
-        },
-        {
-            id: '2',
-            name: 'New Car Down Payment',
-            type: 'Savings',
-            currentAmount: 8000,
-            targetAmount: 10000,
-            progress: 80,
-            eta: 'May 2025',
-            isCompleted: false
-        },
-        {
-            id: '3',
-            name: 'Emergency Fund',
-            type: 'Savings',
-            currentAmount: 12000,
-            targetAmount: 12000,
-            progress: 100,
-            eta: 'Completed',
-            isCompleted: true
-        }
-    ]);
+    const {data: account, isLoading: isAccountLoading} = useAccounts();
+    const {data: goals, isLoading: isGoalsLoading, createGoal, deleteGoal} = useGoals(account?.id ?? 1); // Sorry, mooooooom
 
     const [addGoalModalOpen, setAddGoalModalOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -77,9 +51,9 @@ export default function GoalsOverview() {
     const [timeNumber, setTimeNumber] = useState('');
     const [timeUnit, setTimeUnit] = useState<TimeUnit>('months');
 
-    const goalTypes: GoalType[] = ['Savings', 'Travel', 'Entertainment', 'Relations', 'Education', 'Health'];
+    const goalTypes: GoalType[] = ['Savings', 'Leisure', 'Travel', 'Technology', 'Mobility', 'Education', 'Health'];
 
-    const handleGoalClick = (goalId: string) => {
+    const handleGoalClick = (goalId: number) => {
         navigate(`/goals/${goalId}`);
         setPage(AllPages[3])
     };
@@ -97,16 +71,75 @@ export default function GoalsOverview() {
         setTimeUnit('months');
     };
 
+    const computeDeadline = (): string => {
+        const n = parseInt(timeNumber || '0', 10);
+        const base = new Date();
+        if (Number.isFinite(n) && n > 0) {
+            if (timeUnit === 'weeks') {
+                base.setDate(base.getDate() + n * 7);
+            } else if (timeUnit === 'months') {
+                base.setMonth(base.getMonth() + n);
+            } else if (timeUnit === 'years') {
+                base.setFullYear(base.getFullYear() + n);
+            }
+        }
+        return base.toISOString().slice(0, 10); // YYYY-MM-DD
+    };
+
+    const formatLocalDateTime = (d: Date) => {
+        const pad = (n: number) => n.toString().padStart(2, '0');
+        const year = d.getFullYear();
+        const month = pad(d.getMonth() + 1);
+        const day = pad(d.getDate());
+        const hours = pad(d.getHours());
+        const minutes = pad(d.getMinutes());
+        const seconds = pad(d.getSeconds());
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    };
+
+    const handleCreateGoal = async () => {
+        if (!account?.id) return;
+        const amount = parseFloat(goalAmount || '0');
+        if (!goalName || !amount || amount <= 0) {
+            console.warn('Please enter a goal name and a valid amount.');
+            return;
+        }
+        const now = new Date();
+        const payload: Goal = {
+            Category: goalType,
+            CreatedAt: formatLocalDateTime(now),
+            CurrentAmount: 0,
+            Deadline: computeDeadline(),
+            Description: goalName,
+            GoalId: Date.now(),
+            GoalName: goalName,
+            TargetAmount: amount,
+            UserId: account.id,
+        };
+        try {
+            await createGoal.mutateAsync(payload);
+            handleAddGoalClose();
+        } catch (e) {
+            console.error('Failed to create goal', e);
+        }
+    };
+
     const handleDeleteClick = (event: MouseEvent, goal: Goal) => {
         event.stopPropagation();
         setGoalToDelete(goal);
         setDeleteModalOpen(true);
     };
 
-    const handleDeleteConfirm = () => {
-        // Empty function
-        setDeleteModalOpen(false);
-        setGoalToDelete(null);
+    const handleDeleteConfirm = async () => {
+        if (!goalToDelete) return;
+        try {
+            await deleteGoal.mutateAsync(goalToDelete.GoalId);
+        } catch (e) {
+            console.error('Failed to delete goal', e);
+        } finally {
+            setDeleteModalOpen(false);
+            setGoalToDelete(null);
+        }
     };
 
     const handleDeleteCancel = () => {
@@ -114,12 +147,21 @@ export default function GoalsOverview() {
         setGoalToDelete(null);
     };
 
+    const goalIsCompleted = (goal: Goal) => goal.TargetAmount == goal.CurrentAmount;
+
+    const getGoalProgress = (goal: Goal): number => {
+        const percentage: number = Math.max(0, Math.min(100, (goal.CurrentAmount / goal.TargetAmount) * 100));
+        return Math.round(percentage);
+    }
+
     const getProgressColor = (goal: Goal) => {
-        if (goal.isCompleted) return 'success';
-        if (goal.progress >= 80) return 'primary';
-        if (goal.progress >= 50) return 'info';
+        if (goal.TargetAmount == goal.CurrentAmount) return 'success';
+        if ((goal.TargetAmount - goal.CurrentAmount) * 100 >= 80) return 'primary';
+        if ((goal.TargetAmount - goal.CurrentAmount) * 100 >= 50) return 'info';
         return 'primary';
     };
+
+    if (isAccountLoading || isGoalsLoading || !goals) return <LoadingComponent sx={{ display: 'flex', flexGrow: 1 }} />
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', maxWidth: 'sm', mx: 'auto' }}>
@@ -129,9 +171,9 @@ export default function GoalsOverview() {
                 <Stack spacing={2}>
                     {goals.map((goal) => (
                         <Card
-                            key={goal.id}
+                            key={goal.GoalId}
                             elevation={0}
-                            onClick={() => handleGoalClick(goal.id)}
+                            onClick={() => handleGoalClick(goal.GoalId)}
                             sx={{
                                 cursor: 'pointer',
                                 borderRadius: 3,
@@ -149,19 +191,19 @@ export default function GoalsOverview() {
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>
                                     <Box>
                                         <Typography variant={'body2'} sx={{ pb: 1 }} color={'text.disabled'}>
-                                            {goal.type}
+                                            {goal.Category}
                                         </Typography>
 
                                         <Typography variant="h6" fontWeight="bold" sx={{ lineHeight: 1.2 }}>
-                                            {goal.name}
+                                            {goal.Description}
                                         </Typography>
                                     </Box>
                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                        {goal.isCompleted && (
-                                            <CheckCircle color={goal.isCompleted ? 'success' : 'primary'} sx={{ fontSize: '1.25rem' }} />
+                                        {goalIsCompleted(goal) && (
+                                            <CheckCircle color={goalIsCompleted(goal) ? 'success' : 'primary'} sx={{ fontSize: '1.25rem' }} />
                                         )}
-                                        <Typography variant="h6" fontWeight="bold" color={goal.isCompleted ? 'success' : 'primary'}>
-                                            {goal.progress}%
+                                        <Typography variant="h6" fontWeight="bold" color={goalIsCompleted(goal) ? 'success' : 'primary'}>
+                                            {getGoalProgress(goal)}%
                                         </Typography>
                                         <IconButton
                                             size="small"
@@ -181,13 +223,12 @@ export default function GoalsOverview() {
 
                                 <LinearProgress
                                     variant="determinate"
-                                    value={goal.progress}
+                                    value={getGoalProgress(goal)}
                                     color={getProgressColor(goal)}
                                     sx={{
                                         height: 8,
                                         borderRadius: 2,
                                         mb: 0.5,
-                                        backgroundColor: 'primary.main',
                                         '& .MuiLinearProgress-bar': {
                                             borderRadius: 2
                                         }
@@ -196,14 +237,15 @@ export default function GoalsOverview() {
 
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <Typography variant="body2" color="text.secondary">
-                                        ${goal.currentAmount.toLocaleString()} / ${goal.targetAmount.toLocaleString()}
+                                        ${formatNumberWithComma(goal.CurrentAmount)} / ${formatNumberWithComma(goal.TargetAmount)}
                                     </Typography>
                                     <Typography
                                         variant="body2"
-                                        color={goal.isCompleted ? 'primary' : 'text.secondary'}
-                                        fontWeight={goal.isCompleted ? 'medium' : 'normal'}
+                                        color={goalIsCompleted(goal) ? 'primary' : 'text.secondary'}
+                                        fontWeight={goalIsCompleted(goal) ? 'medium' : 'normal'}
                                     >
-                                        {goal.isCompleted ? 'Completed' : `ETA: ${goal.eta}`}
+                                        {/* FIXME TEMP DEADLINE */}
+                                        {goalIsCompleted(goal) ? 'Completed' : `ETA: ${goal.Deadline}`}
                                     </Typography>
                                 </Box>
                             </CardContent>
@@ -253,10 +295,10 @@ export default function GoalsOverview() {
                         />
 
                         <FormControl fullWidth>
-                            <InputLabel>Goal Type</InputLabel>
+                            <InputLabel>Category</InputLabel>
                             <Select
                                 value={goalType}
-                                label="Goal Type"
+                                label="Category"
                                 onChange={(e) => setGoalType(e.target.value as GoalType)}
                                 size={'small'}
                             >
@@ -323,10 +365,13 @@ export default function GoalsOverview() {
                     </Button>
                     <Button
                         variant="contained"
-                        onClick={handleAddGoalClose}
+                        onClick={handleCreateGoal}
+                        disabled={createGoal.isPending}
                         sx={{ flex: 1, textTransform: 'none', borderRadius: 2 }}
                     >
-                        <Typography variant={'body1'} fontWeight={'500'}>Create Goal</Typography>
+                        <Typography variant={'body1'} fontWeight={'500'}>
+                            {createGoal.isPending ? 'Creating…' : 'Create Goal'}
+                        </Typography>
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -345,7 +390,7 @@ export default function GoalsOverview() {
                 <DialogContent>
                     <Stack spacing={2} width={'100%'}>
                         <Typography variant="body1">
-                            Are you sure you want to delete the goal "{goalToDelete?.name}"?
+                            Are you sure you want to delete the goal "{goalToDelete?.Description}"?
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             When you delete this goal, the saved money will be returned to your main account and all progress will be lost.

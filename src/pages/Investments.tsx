@@ -24,6 +24,9 @@ import {
 import {Close, Dashboard, DonutSmall, Recommend, TrendingUp} from '@mui/icons-material';
 import usePageContext from "../hooks/usePageContext.tsx";
 import {LineChart} from "@mui/x-charts";
+import useDataSeries from "../hooks/useDataSeries.ts";
+import LoadingComponent from "../components/LoadingComponent.tsx";
+import useAccounts from "../hooks/useAccounts.ts";
 
 type FilterCategory = 'ALL' | 'SAVINGS' | 'CREDIT' | 'SMALL EXPENSES' | 'ON-TIME PAYMENTS';
 
@@ -36,6 +39,10 @@ interface InvestmentOption {
 export default function Investments() {
     const { setNavBarTitle } = usePageContext();
     setNavBarTitle('Invest, Save, and Grow');
+
+    const {data: account, isLoading: isAccountLoading} = useAccounts();
+    const {data: dataSeries, isLoading: isDataSeriesLoading} = useDataSeries(account?.id ?? 1);
+
 
     const [selectedFilter, setSelectedFilter] = useState<FilterCategory>('ALL');
     const [bottomNavValue, setBottomNavValue] = useState(1); // Recommendations is active
@@ -154,6 +161,8 @@ export default function Investments() {
         ? recommendations
         : recommendations.filter(rec => rec.category === selectedFilter);
 
+    if (isAccountLoading || isDataSeriesLoading) return <LoadingComponent />
+
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
 
@@ -195,26 +204,21 @@ export default function Investments() {
                         }}
                     >
                         <LineChart
-                            xAxis={[{ data: [1, 2, 3, 5, 8, 10, 12, 14, 16, 18, 20, 22 ], label: 'Days' }]}
+                            xAxis={[{
+                                data: dataSeries?.dates.map(date => new Date(date).getTime()) ?? [],
+                                label: 'Days',
+                                scaleType: 'time', // 👈 very important for dates
+                            }]}
                             series={[
                                 {
-                                    data: [2, 5.5, 2, 8.5, 1.5, 5, 2.8, 5.57, 2.77, 8.57, 1.325, 9],
+                                    data: dataSeries?.scenarios.cd_3_5 ?? [],
                                     highlightScope: {
                                         highlight: 'series',
                                         fade: 'global',
                                     },
                                     showMark: false,
-                                    label: 'Balance'
-                                },
-                                {
-                                    data: [3.12, 7.95, 4.01, 3.38, 2.50, 6.71, 1.99, 8.15, 5.43, 12.00, 4.25, 7.30],
-                                    highlightScope: {
-                                        highlight: 'series',
-                                        fade: 'global',
-                                    },
-                                    showMark: false,
-                                    label: 'Balance'
-                                },
+                                    label: 'Your balance with Capital One 365'
+                                }
                             ]}
                             grid={{horizontal: true, vertical: true}}
                             hideLegend
