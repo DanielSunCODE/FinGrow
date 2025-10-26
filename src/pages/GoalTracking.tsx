@@ -150,7 +150,7 @@ export default function GoalTracking () {
             </AppBar>
 
             {/* Main Content */}
-            <Box component="main" sx={{ flexGrow: 1, pb: 14 }}>
+            <Box component="main" sx={{ flexGrow: 1, pb: 14, backgroundColor:'background.paper'}}>
                 {/* Goal Progress Visualizer */}
                 <Box sx={{ p: 2, pt: 4, textAlign: 'center' }}>
                     <Box sx={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -158,9 +158,9 @@ export default function GoalTracking () {
                             variant="determinate"
                             value={goal.progress}
                             size={192}
-                            thickness={5}
+                            thickness={4}
                             sx={{
-                                color: 'primary.main',
+                                color: goal.progress === 100 ? 'success.main' : 'primary.main',
                                 '& .MuiCircularProgress-circle': {
                                     strokeLinecap: 'round',
                                 }
@@ -170,7 +170,7 @@ export default function GoalTracking () {
                             variant="determinate"
                             value={100}
                             size={192}
-                            thickness={5}
+                            thickness={4}
                             sx={{
                                 color: 'action.disabled',
                                 position: 'absolute',
@@ -189,7 +189,7 @@ export default function GoalTracking () {
                                 justifyContent: 'center'
                             }}
                         >
-                            <Typography variant="h3" fontWeight="bold" color="primary">
+                            <Typography variant="h3" sx={{color: goal.progress === 100 ? 'success.main' : 'primary.main', fontWeight:"bold"}}>
                                 {goal.progress}%
                             </Typography>
                             <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.75rem' }}>
@@ -214,8 +214,8 @@ export default function GoalTracking () {
                 <Box sx={{ p: 2 }}>
                     <Grid container spacing={1.5}>
                         <Grid size={6}>
-                            <Card sx={{ borderRadius: 3 }}>
-                                <CardContent sx={{ p: 2 }}>
+                            <Card sx={{ borderRadius: 3, backgroundColor:"white", boxShadow: "none", border:"1px solid #e0e0e0" }}>
+                                <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
                                     <Typography variant="body2" color="text.secondary" fontWeight="medium">
                                         Amount Saved
                                     </Typography>
@@ -226,8 +226,8 @@ export default function GoalTracking () {
                             </Card>
                         </Grid>
                         <Grid size={6}>
-                            <Card sx={{ borderRadius: 3 }}>
-                                <CardContent sx={{ p: 2 }}>
+                            <Card sx={{ borderRadius: 3, backgroundColor:"white", boxShadow: "none", border:"1px solid #e0e0e0" }}>
+                                <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
                                     <Typography variant="body2" color="text.secondary" fontWeight="medium">
                                         Remaining
                                     </Typography>
@@ -238,8 +238,8 @@ export default function GoalTracking () {
                             </Card>
                         </Grid>
                         <Grid size={12}>
-                            <Card sx={{ borderRadius: 3 }}>
-                                <CardContent sx={{ p: 2 }}>
+                            <Card sx={{ borderRadius: 3, backgroundColor:"white", boxShadow: "none", border:"1px solid #e0e0e0" }}>
+                                <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
                                     <Typography variant="body2" color="text.secondary" fontWeight="medium">
                                         Projected Date
                                     </Typography>
@@ -288,13 +288,16 @@ export default function GoalTracking () {
 
                 {/* Actionable Steps List */}
                 <Box sx={{ px: 2 }}>
-                    <Stack spacing={1.5}>
+                    <Stack spacing={1.2}>
                         {actionSteps.map((step) => (
                             <Card
                                 key={step.id}
                                 sx={{
                                     borderRadius: 3,
                                     cursor: 'pointer',
+                                    boxShadow: 0,
+                                    backgroundColor: 'white',
+                                    border: '1px solid #e0e0e0',
                                     opacity: step.completed ? 0.6 : 1,
                                     '&:hover': {
                                         boxShadow: 2
@@ -302,8 +305,8 @@ export default function GoalTracking () {
                                 }}
                                 onClick={() => handleActionClick(step.id)}
                             >
-                                <CardContent sx={{ p: 2 }}>
-                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                                <CardContent sx={{ pt: 2}}>
+                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2}}>
                                         <Avatar
                                             sx={{
                                                 backgroundColor: step.completed ? 'success.main' : 'primary.main',
