@@ -7,7 +7,6 @@ import {
     Button,
     Card,
     CardContent,
-    Chip,
     Dialog,
     DialogActions,
     DialogContent,
@@ -26,22 +25,17 @@ import {
     Typography
 } from '@mui/material';
 import {Add, ArrowBack, CheckCircle, Dashboard, Delete, DonutSmall, Recommend} from '@mui/icons-material';
+import type {Goal, GoalType} from "../types/Goal.ts";
+import {useNavigate} from "react-router-dom";
+import usePageContext from "../hooks/usePageContext.tsx";
+import {AllPages} from "./AllPages.tsx";
 
-interface Goal {
-    id: string;
-    name: string;
-    type: string;
-    currentAmount: number;
-    targetAmount: number;
-    progress: number;
-    eta: string;
-    isCompleted: boolean;
-}
-
-type GoalType = 'Savings' | 'Travel' | 'Entertainment' | 'Relations' | 'Education' | 'Health';
 type TimeUnit = 'weeks' | 'months' | 'years';
 
 export default function GoalsOverview() {
+    const navigate = useNavigate();
+    const { setPage } = usePageContext();
+
     const [goals, setGoals] = useState<Goal[]>([
         {
             id: '1',
@@ -94,7 +88,8 @@ export default function GoalsOverview() {
     };
 
     const handleGoalClick = (goalId: string) => {
-        // Empty function
+        navigate(`/goals/${goalId}`);
+        setPage(AllPages[3])
     };
 
     const handleBottomNavChange = (_event: SyntheticEvent, newValue: number) => {
@@ -403,13 +398,14 @@ export default function GoalsOverview() {
                 open={deleteModalOpen}
                 onClose={handleDeleteCancel}
                 maxWidth="sm"
+                sx={{ borderRadius: 4, '& .MuiDialog-paper': { borderRadius: 4} }}
                 fullWidth
             >
-                <DialogTitle sx={{ color: 'error.main', fontWeight: 'bold' }}>
-                    Delete Goal
+                <DialogTitle sx={{ color: 'error.main', fontWeight: '500' }}>
+                    <Typography variant="body1" fontWeight={600} sx={{ pt: 2 }}>Delete Goal</Typography>
                 </DialogTitle>
                 <DialogContent>
-                    <Stack spacing={2}>
+                    <Stack spacing={2} width={'100%'}>
                         <Typography variant="body1">
                             Are you sure you want to delete the goal "{goalToDelete?.name}"?
                         </Typography>
@@ -422,7 +418,7 @@ export default function GoalsOverview() {
                     <Button
                         variant="outlined"
                         onClick={handleDeleteCancel}
-                        sx={{ flex: 1, textTransform: 'none' }}
+                        sx={{ flex: 1, textTransform: 'none', borderRadius: 2 }}
                     >
                         Cancel
                     </Button>
@@ -430,7 +426,7 @@ export default function GoalsOverview() {
                         variant="contained"
                         color="error"
                         onClick={handleDeleteConfirm}
-                        sx={{ flex: 1, textTransform: 'none' }}
+                        sx={{ flex: 1, textTransform: 'none', borderRadius: 2 }}
                     >
                         Delete
                     </Button>
