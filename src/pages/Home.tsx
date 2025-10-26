@@ -158,21 +158,22 @@ export default function Home () {
                     <Button
                         variant="contained"
                         onClick={handleNavigateToActions}
+                        fullWidth
                         sx={{
-                            px: 2,
-                            py: 1,
-                            fontSize: '0.875rem',
-                            fontWeight: 500,
+                            mt: 2,
+                            py: 1.5,
+                            fontSize: '1rem',
+                            fontWeight: 'bold',
                             borderRadius: 2,
                             textTransform: 'none',
-                            backgroundColor: 'background.paper',
-                            border: 0,
+                            boxShadow: 0,
+                            backgroundColor: 'grey.700',
                             '&:hover': {
-                                backgroundColor: 'grey.600',
+                                opacity: 0.95,
                             }
                         }}
                     >
-                        <Typography variant={'body1'} color={'text.primary'} fontWeight={600}>
+                        <Typography variant={'body1'} color={'white'} fontWeight={600}>
                             Improve your cash flow
                         </Typography>
                     </Button>
