@@ -11,10 +11,13 @@ import {
 } from '@mui/material';
 import {ShowChart} from '@mui/icons-material';
 import {type MouseEvent, useState} from 'react';
-import {TopAppBar} from "../components/TopAppBar.tsx";
+import usePageContext from "../hooks/usePageContext.tsx";
 
 type PredictionPeriod = 'today' | '1month' | '3month';
 export default function Home () {
+    const { setNavBarTitle } = usePageContext();
+    setNavBarTitle('Home');
+
     const [predictionPeriod, setPredictionPeriod] = useState<PredictionPeriod>('1month');
 
     const handlePredictionPeriodChange = (
@@ -41,8 +44,6 @@ export default function Home () {
 
     return (
         <Box sx={{ mb: 12 }}>
-            <TopAppBar />
-
             <Stack
                 direction={'column'}
                 sx={{

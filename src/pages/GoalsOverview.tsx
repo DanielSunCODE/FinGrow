@@ -1,6 +1,5 @@
 import {type SyntheticEvent, useState} from 'react';
 import {
-    AppBar,
     BottomNavigation,
     BottomNavigationAction,
     Box,
@@ -21,10 +20,9 @@ import {
     Select,
     Stack,
     TextField,
-    Toolbar,
     Typography
 } from '@mui/material';
-import {Add, ArrowBack, CheckCircle, Dashboard, Delete, DonutSmall, Recommend} from '@mui/icons-material';
+import {Add, CheckCircle, Dashboard, Delete, DonutSmall, Recommend} from '@mui/icons-material';
 import type {Goal, GoalType} from "../types/Goal.ts";
 import {useNavigate} from "react-router-dom";
 import usePageContext from "../hooks/usePageContext.tsx";
@@ -34,7 +32,8 @@ type TimeUnit = 'weeks' | 'months' | 'years';
 
 export default function GoalsOverview() {
     const navigate = useNavigate();
-    const { setPage } = usePageContext();
+    const { setPage, setNavBarTitle } = usePageContext();
+    setNavBarTitle('Your Goals');
 
     const [goals, setGoals] = useState<Goal[]>([
         {
@@ -141,28 +140,6 @@ export default function GoalsOverview() {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', maxWidth: 'sm', mx: 'auto' }}>
-            {/* Top App Bar */}
-            <AppBar
-                position="sticky"
-                elevation={0}
-                sx={{
-                    backgroundColor: 'background.default',
-                    color: 'text.primary',
-                    backdropFilter: 'blur(8px)',
-                    borderBottom: 0,
-                    borderColor: 'divider'
-                }}
-            >
-                <Toolbar sx={{ justifyContent: 'space-between', pt: 1 }}>
-                    <IconButton onClick={handleBackClick} color="inherit">
-                        <ArrowBack />
-                    </IconButton>
-                    <Typography variant={"body1"} fontWeight="600" sx={{ flexGrow: 1, textAlign: 'center' }}>
-                        Your Goals
-                    </Typography>
-                    <Box sx={{ width: 40 }} />
-                </Toolbar>
-            </AppBar>
 
             {/* Main Content */}
             <Box component="main" sx={{ flexGrow: 1, px: 2, pb: 14, pt: 1 }}>

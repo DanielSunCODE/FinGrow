@@ -1,7 +1,6 @@
 import {type SyntheticEvent, useState} from 'react';
 import {
     Alert,
-    AppBar,
     BottomNavigation,
     BottomNavigationAction,
     Box,
@@ -20,11 +19,11 @@ import {
     Select,
     Stack,
     TextField,
-    Toolbar,
     Typography
 } from '@mui/material';
-import {ArrowBack, Close, Dashboard, DonutSmall, Recommend, ShowChart, TrendingUp} from '@mui/icons-material';
+import {Close, Dashboard, DonutSmall, Recommend, ShowChart, TrendingUp} from '@mui/icons-material';
 import {useNavigate} from 'react-router-dom';
+import usePageContext from "../hooks/usePageContext.tsx";
 
 type FilterCategory = 'ALL' | 'SAVINGS' | 'CREDIT' | 'SMALL EXPENSES' | 'ON-TIME PAYMENTS';
 
@@ -36,6 +35,9 @@ interface InvestmentOption {
 
 export default function Recommendation() {
     const navigate = useNavigate();
+
+    const { setNavBarTitle } = usePageContext();
+    setNavBarTitle('Recommendations for you');
 
     const [selectedFilter, setSelectedFilter] = useState<FilterCategory>('ALL');
     const [bottomNavValue, setBottomNavValue] = useState(1); // Recommendations is active
@@ -160,28 +162,6 @@ export default function Recommendation() {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-            {/* Top App Bar */}
-            <AppBar
-                position="sticky"
-                elevation={0}
-                sx={{
-                    backgroundColor: 'background.default',
-                    color: 'text.primary',
-                    backdropFilter: 'blur(8px)',
-                    borderBottom: 0,
-                    borderColor: 'divider'
-                }}
-            >
-                <Toolbar sx={{ justifyContent: 'space-between', pt: 1 }}>
-                    <IconButton onClick={handleBackClick} color="inherit">
-                        <ArrowBack />
-                    </IconButton>
-                    <Typography variant={"body1"} fontWeight="600" sx={{ flexGrow: 1, textAlign: 'center' }}>
-                        Recommendations for you
-                    </Typography>
-                    <Box sx={{ width: 40 }} />
-                </Toolbar>
-            </AppBar>
 
             {/* Main Content */}
             <Box component="main" sx={{ flexGrow: 1, pb: 12 }}>
